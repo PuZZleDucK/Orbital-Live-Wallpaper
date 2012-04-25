@@ -9,6 +9,6 @@ public class OrbitalLiveWallpaperActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        setTitle("PC mod");
+        setTitle("Phone mod");
     }
 }
