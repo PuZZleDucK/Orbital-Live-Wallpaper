@@ -41,7 +41,8 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	public static int ORBIT_4_KNOT = 1;
 	public static int ORBIT_4_SIMPLE = 2;
 	public static int ORBIT_3_SIMPLE = 3;
-	public static String[] orbitNames = {"3 knot","4 knot","4 simple","3 simple"};
+	public static int ORBIT_8 = 4;
+	public static String[] orbitNames = {"3 knot","4 knot","4 simple","3 simple","Windows8"};
 	public static int orbitType = orbitNames.length - 1;  
     
 
@@ -62,8 +63,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
     
     class TargetEngine extends Engine 
         implements SharedPreferences.OnSharedPreferenceChangeListener {
-        private static final int MAX_FLARE_COUNT = 1;
-
+       
 		private final Handler mHandler = new Handler();
 
 		
@@ -83,24 +83,6 @@ public class OrbitalLiveWallpaper extends WallpaperService {
         private float mLastTouchX = 239;//indent initial display
         private float mLastTouchY = 239;
         
-        private boolean leftOn = true;
-        private boolean topOn = true;
-        private boolean quadOn = true;
-        private boolean pulse3dOn = true;
-    	private String shape = "diamond";
-        
-        private boolean discOn = true;
-        private int discStyle = 1;
-        private boolean pulseOn = true;
-        private int spacingOfRings = 15;
-        private int numberOfRings = 16;
-        
-        private boolean flareOn = true;
-        
-        private boolean mouseOn = false;
-        String cursor = "debianswirl";//cursor_typenames
-        private Bitmap mCursorImage;
-
         private final Runnable mDrawCube = new Runnable() {
             public void run() {
                 drawFrame();
@@ -132,33 +114,12 @@ public class OrbitalLiveWallpaper extends WallpaperService {
         public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
         	//
 //    		Log.d(TAG, " prefs change" );
-        	shape = prefs.getString("target_shape", "diamond");
-            quadOn = prefs.getBoolean("target_quad_on", true);
-            leftOn = prefs.getBoolean("target_left_on", true);
-            topOn = prefs.getBoolean("target_top_on", true);
-            pulse3dOn =  prefs.getBoolean("target_dpulse_on", true);
-            
-            //rotating targets
-            discOn = prefs.getBoolean("target_disc_on", true);
-            discStyle = prefs.getInt("target_disc_type", 1);
-//            discStyle = Integer.valueOf(prefs.getString("target_disc_type", "1"));
-            discStyle = prefs.getInt("target_disc_type", 1);
-            
-            //static targets
-            mouseOn = prefs.getBoolean("target_mouse_on", false);
-            cursor = prefs.getString("cursor_type", "debianswirl");//cursor_typenames
-            
-            //pulse settings:
-            pulseOn = prefs.getBoolean("target_pulse_on", true);
-            spacingOfRings = Integer.valueOf(prefs.getString("target_pulse_width", "15"));
-            numberOfRings = Integer.valueOf(prefs.getString("target_pulse_number", "16"));
-            
             //flare settings:
-            flareOn = prefs.getBoolean("target_flare_on", true);
+            //flareOn = prefs.getBoolean("target_flare_on", true);
 
             Resources myResources;
             myResources = getBaseContext().getResources();
-            mCursorImage = BitmapFactory.decodeResource(myResources, getResources().getIdentifier( getPackageName() + ":drawable/"+cursor, null, null));
+           // mCursorImage = BitmapFactory.decodeResource(myResources, getResources().getIdentifier( getPackageName() + ":drawable/"+cursor, null, null));
 
             //restart engine here
             OrbitalLiveWallpaper.this.onDestroy();
@@ -181,29 +142,8 @@ public class OrbitalLiveWallpaper extends WallpaperService {
             //maybe just if null??? .. using mPrefs now... hopefully this will be resolved now
             SharedPreferences prefs = mPrefs;            
         	//3d targets
-        	shape = prefs.getString("target_shape", "diamond");
-            quadOn = prefs.getBoolean("target_quad_on", true);
-            leftOn = prefs.getBoolean("target_left_on", true);
-            topOn = prefs.getBoolean("target_top_on", true);
-            pulse3dOn =  prefs.getBoolean("target_dpulse_on", true);
-            
-            //rotating targets
-            discOn = prefs.getBoolean("target_disc_on", true);
-//            discStyle = Integer.valueOf(prefs.getString("target_disc_type", "1"));
-            discStyle = prefs.getInt("target_disc_type", 1);
-            
-            //static targets
-            mouseOn = prefs.getBoolean("target_mouse_on", false);
-            cursor = prefs.getString("cursor_type", "debianswirl");//cursor_typenames
-
-            //pulse settings:
-            pulseOn = prefs.getBoolean("target_pulse_on", true);
-            spacingOfRings = Integer.valueOf(prefs.getString("target_pulse_width", "15"));
-            numberOfRings = Integer.valueOf(prefs.getString("target_pulse_number", "16"));
- 
-
             //flare settings:
-            flareOn = prefs.getBoolean("target_flare_on", true);
+           // flareOn = prefs.getBoolean("target_flare_on", true);
  
             
         }
@@ -449,18 +389,47 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	                now -= orbitalSeperation ;
 	            }
 			
-			}
+			}//simple3
 			
-//            c.drawCircle( mLastTouchX + (float) ( (2+Math.cos( 3*now ) * Math.cos(2*now)) *100)-200, 
-//       		     mLastTouchY + (float) ( (2+Math.cos( 3*now ) * Math.sin(2*now)) *100)-200, 
-//       		     5, mPaint);//SystemClock.elapsedRealtime()
-//            now -= 50;
-//            c.drawCircle( mLastTouchX + (float) ( (2+Math.cos( 3*now ) * Math.cos(2*now)) *100)-200, 
-//       		     mLastTouchY + (float) ( (2+Math.cos( 3*now ) * Math.sin(2*now)) *100)-200, 
-//       		     5, mPaint);//SystemClock.elapsedRealtime()
+
+
+			if(orbitType == ORBIT_8)
+        	{
+        		//int orbitalCount = 8;
+                //float orbitalSeperation = 67.5f;
+
+
+        		int orbitalCount = 5;
+                float orbitalSeperation = 5f;
+
+
+	            for(int i = 0; i < orbitalCount; i++)
+	            {
+
+	            	if(i%3 == 0)
+	            	{
+	                    mPaint.setARGB(255, 255, 0, 0);            		
+	            	}
+	            	if(i%3 == 1)
+	            	{
+	                    mPaint.setARGB(255, 0, 255, 0);            		
+	            	}
+	            	if(i%3 == 2)
+	            	{
+	                    mPaint.setARGB(255, 0, 0, 255);            		
+	            	}
+	                c.drawCircle( mLastTouchX + (float) ( (Math.sin( now ) ) *100), 
+								 mLastTouchY + (float) ( (Math.cos( now ) ) *100), 
+								 1+i, mPaint);//SystemClock.elapsedRealtime()
+					orbitalSeperation = (0.5f * (float) Math.sin((SystemClock.elapsedRealtime()*rotationSpeed)%360));
+	                now -= orbitalSeperation;
+	            }
+
+			}//windows late
+			
     }
         
-        }
+}//class
 		
 
 
