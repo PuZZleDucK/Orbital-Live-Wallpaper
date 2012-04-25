@@ -26,7 +26,7 @@ public class TargetLiveWallpaperSettings extends PreferenceActivity
     @Override
     protected void onCreate(Bundle newBundle) {
         super.onCreate(newBundle);
-        getPreferenceManager().setSharedPreferencesName(TargetLiveWallpaper.SHARED_PREFS_NAME);
+        getPreferenceManager().setSharedPreferencesName(OrbitalLiveWallpaper.SHARED_PREFS_NAME);
         addPreferencesFromResource(R.xml.lwp_settings);
         
         getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
