@@ -1,27 +1,5 @@
-/*
- * Copyright (C) 2009 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-//
-//Sweet... modding by PuZZleDucK, I'll take some credit but most goes to 
-//the fantastic ppls at the big G.
-//
-//V.1.0: tracking at top and left... more to come surely
-//
-// might try to change models now...
-//
 
+ 
 package puzzleduck.com;
 
 import java.util.ArrayList;
@@ -48,7 +26,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 
-//This animated wallpaper draws many user selectable items... target, trackers, cursor, etc
 public class OrbitalLiveWallpaper extends WallpaperService {
     @Override
 	public void onConfigurationChanged(Configuration newConfig) {
@@ -62,8 +39,9 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 
 	public static int ORBIT_6_KNOT = 0;
 	public static int ORBIT_4_KNOT = 1;
-	public static int ORBIT_SIMPLE = 2;
-	public static String[] orbitNames = {"6 knot","4 knot","simple"};
+	public static int ORBIT_4_SIMPLE = 2;
+	public static int ORBIT_3_SIMPLE = 3;
+	public static String[] orbitNames = {"3 knot","4 knot","4 simple","3 simple"};
 	public static int orbitType = orbitNames.length - 1;  
     
 
@@ -88,10 +66,6 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 
 		private final Handler mHandler = new Handler();
 
-		private int TD_SCALE = 1;//100
-		private final static int TD_OFFSET_X = 0;
-		private final static int TD_OFFSET_Y = 0;
-		private final static int TD_OFFSET_Z = 0;
 		
         private final Paint mPaint = new Paint();
         private float mTouchX = -1;
@@ -120,7 +94,6 @@ public class OrbitalLiveWallpaper extends WallpaperService {
         private boolean pulseOn = true;
         private int spacingOfRings = 15;
         private int numberOfRings = 16;
-        private int mPulseN = 0;
         
         private boolean flareOn = true;
         
@@ -157,7 +130,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
         }
 
         public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-        	//3d targets
+        	//
 //    		Log.d(TAG, " prefs change" );
         	shape = prefs.getString("target_shape", "diamond");
             quadOn = prefs.getBoolean("target_quad_on", true);
@@ -183,15 +156,6 @@ public class OrbitalLiveWallpaper extends WallpaperService {
             //flare settings:
             flareOn = prefs.getBoolean("target_flare_on", true);
 
-           // read the 3D model from the resource
-//            readModel(shape);
-            //read model from file
-//            readModelFile("/sdcard/model.dae");
-//			Log.d(TAG, " about to read" );
-          //  readWavefrontModelFile("/sdcard/whatever.obj");
-            
-            
-            //from sdk... think i get it now
             Resources myResources;
             myResources = getBaseContext().getResources();
             mCursorImage = BitmapFactory.decodeResource(myResources, getResources().getIdentifier( getPackageName() + ":drawable/"+cursor, null, null));
@@ -214,9 +178,6 @@ public class OrbitalLiveWallpaper extends WallpaperService {
             super.onCreate(surfaceHolder);
             setTouchEventsEnabled(true);
            
-            //init flare list
-           // flareList = new ArrayList<FlareData>(1);
-            
             //maybe just if null??? .. using mPrefs now... hopefully this will be resolved now
             SharedPreferences prefs = mPrefs;            
         	//3d targets
@@ -312,11 +273,6 @@ public class OrbitalLiveWallpaper extends WallpaperService {
             super.onTouchEvent(event);
         }
 
-        /*
-         * Draw one frame of the animation. This method gets called repeatedly
-         * by posting a delayed Runnable. You can do any drawing you want in
-         * here. This example draws a wireframe cube.
-         */
         void drawFrame() {
             final SurfaceHolder holder = getSurfaceHolder();
 
@@ -325,12 +281,9 @@ public class OrbitalLiveWallpaper extends WallpaperService {
                 c = holder.lockCanvas();
                 if (c != null) {
                 updateTouchPoint(c);
-//DEBUG
-//                drawConkey(c);
-//Select modes   
                     	drawOrbital(c);
 						
-                   // }
+                  
                 }
             } finally { 
                 if (c != null) holder.unlockCanvasAndPost(c);
@@ -426,7 +379,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	            }
         	}
 
-			if(orbitType == ORBIT_SIMPLE)
+			if(orbitType == ORBIT_4_SIMPLE)
         	{
         		int orbitalCount = 8;
                 float orbitalSeperation = 67.5f;
@@ -455,8 +408,48 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 								 1+i, mPaint);//SystemClock.elapsedRealtime()
 	                now -= orbitalSeperation ;
 	            }
+				
+				
+				
+				
+				
+				
         	}
 			
+			
+
+			if(orbitType == ORBIT_3_SIMPLE)
+        	{
+        		//int orbitalCount = 8;
+                //float orbitalSeperation = 67.5f;
+
+
+        		int orbitalCount = 9;
+                float orbitalSeperation = 90f;
+				
+				
+	            for(int i = 0; i < orbitalCount; i++)
+	            {
+
+	            	if(i%3 == 0)
+	            	{
+	                    mPaint.setARGB(255, 255, 0, 0);            		
+	            	}
+	            	if(i%3 == 1)
+	            	{
+	                    mPaint.setARGB(255, 0, 255, 0);            		
+	            	}
+	            	if(i%3 == 2)
+	            	{
+	                    mPaint.setARGB(255, 0, 0, 255);            		
+	            	}
+	                c.drawCircle( mLastTouchX + (float) ( (Math.sin( now ) ) *100), 
+								 mLastTouchY + (float) ( (Math.cos( now ) ) *100), 
+								 1+i, mPaint);//SystemClock.elapsedRealtime()
+	                now -= orbitalSeperation ;
+	            }
+			
+			}
 			
 //            c.drawCircle( mLastTouchX + (float) ( (2+Math.cos( 3*now ) * Math.cos(2*now)) *100)-200, 
 //       		     mLastTouchY + (float) ( (2+Math.cos( 3*now ) * Math.sin(2*now)) *100)-200, 
