@@ -28,9 +28,9 @@
             <intent-filter>
                 <action android:name="android.service.wallpaper.WallpaperService" />
             </intent-filter>
-            <meta-data android:name="android.service.wallpaper" android:resource="@xml/target_lwp" />
+            <meta-data android:name="android.service.wallpaper" android:resource="@xml/lwp" />
         </service>
-		
+	
 		
     </application>
 
