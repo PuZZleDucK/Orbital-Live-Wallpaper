@@ -37,7 +37,7 @@ import android.provider.MediaStore;
 public class TargetLiveActivity extends Activity implements OnSharedPreferenceChangeListener   {
     public static final String SHARED_PREFS_NAME="target_lwp_settings";
 
-
+/*
     private static final String TAG = "TargetLiveActivity";
 
 
@@ -282,7 +282,7 @@ public class TargetLiveActivity extends Activity implements OnSharedPreferenceCh
 
 	
 	}
-
+*/
 
 	@Override
 	public Drawable peekWallpaper() {
