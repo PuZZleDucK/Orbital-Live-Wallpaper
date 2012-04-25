@@ -57,10 +57,14 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 		this.onCreate();
 	}
 
-	public static final String SHARED_PREFS_NAME="target_lwp_settings";
-    private static final String TAG = "TargetLiveWallpaper";
+	public static final String SHARED_PREFS_NAME="orbital_lwp_settings";
+    private static final String TAG = "OrbitalLiveWallpaper";
 
-    //private ArrayList<FlareData> flareList;
+	public static int ORBIT_6_KNOT = 0;
+	public static int ORBIT_4_KNOT = 1;
+	public static int ORBIT_SIMPLE = 2;
+	public static String[] orbitNames = {"6 knot","4 knot","simple"};
+	public static int orbitType = orbitNames.length - 1;  
     
 
     @Override
@@ -131,6 +135,8 @@ public class OrbitalLiveWallpaper extends WallpaperService {
         };
         private boolean mVisible;
         private SharedPreferences mPrefs;
+		
+
 
         public SharedPreferences.OnSharedPreferenceChangeListener listener;
         
@@ -300,6 +306,9 @@ public class OrbitalLiveWallpaper extends WallpaperService {
                 mTouchX = -1;
                 mTouchY = -1;
             }
+			
+			orbitType = (orbitType +1) % orbitNames.length;
+			
             super.onTouchEvent(event);
         }
 
@@ -359,9 +368,6 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 
 //            int orbitalCount = 3;
 //            int orbitalSeperation = 45;
-            int ORBIT_6_KNOT = 0;
-            int ORBIT_4_KNOT = 1;
-            int orbitType = ORBIT_4_KNOT;  
 
         	if(orbitType == ORBIT_6_KNOT) 
         	{
@@ -420,6 +426,38 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	            }
         	}
 
+			if(orbitType == ORBIT_SIMPLE)
+        	{
+        		int orbitalCount = 8;
+                float orbitalSeperation = 67.5f;
+
+	            for(int i = 0; i < orbitalCount; i++)
+	            {
+	            	if(i%4 == 0)
+	            	{
+	                    mPaint.setARGB(255, 255, 0, 0);            		
+	            	}
+	            	if(i%4 == 1)
+	            	{
+	                    mPaint.setARGB(255, 0, 255, 0);            		
+	            	}
+	            	if(i%4 == 2)
+	            	{
+	                    mPaint.setARGB(255, 0, 0, 255);           		
+	            	}
+	            	if(i%4 == 3)
+	            	{
+	                    mPaint.setARGB(255, 255, 255, 255);          		
+	            	}
+
+	                c.drawCircle( mLastTouchX + (float) ( (Math.sin( now ) ) *100), 
+								 mLastTouchY + (float) ( (Math.cos( now ) ) *100), 
+								 1+i, mPaint);//SystemClock.elapsedRealtime()
+	                now -= orbitalSeperation ;
+	            }
+        	}
+			
+			
 //            c.drawCircle( mLastTouchX + (float) ( (2+Math.cos( 3*now ) * Math.cos(2*now)) *100)-200, 
 //       		     mLastTouchY + (float) ( (2+Math.cos( 3*now ) * Math.sin(2*now)) *100)-200, 
 //       		     5, mPaint);//SystemClock.elapsedRealtime()
