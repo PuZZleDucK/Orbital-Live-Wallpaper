@@ -255,7 +255,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
         }
         
 
-		float orbitalCompression = 0.1f;
+		float orbitalCompression = 0.2f;
 
         void drawOrbital(Canvas c) {
         	float rotationSpeed = 0.001f;
@@ -459,7 +459,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	                c.drawCircle( mLastTouchX + (float) ( (Math.sin( now + (orbitalCompression*i)) ) *100), 
 								 mLastTouchY + (float) ( (Math.cos( now + (orbitalCompression*i)) ) *100), 
 								 5, mPaint);//SystemClock.elapsedRealtime()
-					
+					orbitalCompression = 0.2f + (float)Math.sin( now )*0.2f;
 					//orbitalSeperation = (0.5f * (float) Math.sin((SystemClock.elapsedRealtime()*rotationSpeed)%360));
 	            }
 
