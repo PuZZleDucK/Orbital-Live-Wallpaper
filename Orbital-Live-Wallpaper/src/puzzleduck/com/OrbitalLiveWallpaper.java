@@ -41,8 +41,9 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	public static int ORBIT_4_KNOT = 1;
 	public static int ORBIT_4_SIMPLE = 2;
 	public static int ORBIT_3_SIMPLE = 3;
-	public static int ORBIT_8 = 4;
-	public static String[] orbitNames = {"3 knot","4 knot","4 simple","3 simple","Windows8"};
+	public static int ORBIT_5_SIMPLE = 4;
+	public static int ORBIT_8 = 5;
+	public static String[] orbitNames = {"3 knot","4 knot","4 simple","3 simple","5 simple","Windows8"};
 	public static int orbitType = orbitNames.length - 1;  
     
 
@@ -254,6 +255,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
         }
         
 
+		float orbitalCompression = 0.1f;
 
         void drawOrbital(Canvas c) {
         	float rotationSpeed = 0.001f;
@@ -393,7 +395,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 			
 
 
-			if(orbitType == ORBIT_8)
+			if(orbitType == ORBIT_5_SIMPLE)
         	{
         		//int orbitalCount = 8;
                 //float orbitalSeperation = 67.5f;
@@ -418,11 +420,47 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	            	{
 	                    mPaint.setARGB(255, 0, 0, 255);            		
 	            	}
-	                c.drawCircle( mLastTouchX + (float) ( (Math.sin( now ) ) *100), 
-								 mLastTouchY + (float) ( (Math.cos( now ) ) *100), 
-								 1+i, mPaint);//SystemClock.elapsedRealtime()
-					orbitalSeperation = (0.5f * (float) Math.sin((SystemClock.elapsedRealtime()*rotationSpeed)%360));
+	                c.drawCircle( mLastTouchX + (float) ( (Math.sin( now + (10*i)) ) *100), 
+								 mLastTouchY + (float) ( (Math.cos( now + (10*i)) ) *100), 
+								 5, mPaint);//SystemClock.elapsedRealtime()
+
+					//orbitalSeperation = (0.5f * (float) Math.sin((SystemClock.elapsedRealtime()*rotationSpeed)%360));
 	                now -= orbitalSeperation;
+	            }
+
+			}//windows late
+
+			if(orbitType == ORBIT_8)
+        	{
+        		//int orbitalCount = 8;
+                //float orbitalSeperation = 67.5f;
+
+
+        		int orbitalCount = 5;
+
+
+				orbitalCompression += Math.sin(SystemClock.elapsedRealtime()/500)/100;
+				
+	            for(int i = 0; i < orbitalCount; i++)
+	            {
+
+	            	if(i%3 == 0)
+	            	{
+	                    mPaint.setARGB(255, 255, 0, 0);            		
+	            	}
+	            	if(i%3 == 1)
+	            	{
+	                    mPaint.setARGB(255, 0, 255, 0);            		
+	            	}
+	            	if(i%3 == 2)
+	            	{
+	                    mPaint.setARGB(255, 0, 0, 255);            		
+	            	}
+	                c.drawCircle( mLastTouchX + (float) ( (Math.sin( now + (orbitalCompression*i)) ) *100), 
+								 mLastTouchY + (float) ( (Math.cos( now + (orbitalCompression*i)) ) *100), 
+								 5, mPaint);//SystemClock.elapsedRealtime()
+					
+					//orbitalSeperation = (0.5f * (float) Math.sin((SystemClock.elapsedRealtime()*rotationSpeed)%360));
 	            }
 
 			}//windows late
