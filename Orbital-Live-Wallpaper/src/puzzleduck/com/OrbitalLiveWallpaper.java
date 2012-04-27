@@ -458,8 +458,8 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	                    mPaint.setARGB(255, 0, 0, 255);            		
 	            	}
 	            	
-	                c.drawCircle( mLastTouchX + (float) ( (Math.sin( -45 + now + ((orbitalCompression+0.1)*i)) ) *100), 
-								 mLastTouchY + (float) ( (Math.cos( -45 +  now + ((orbitalCompression+0.1)*i)) ) *100), 
+	                c.drawCircle( mLastTouchX + (float) ( (Math.sin( -1.5 + now + ((orbitalCompression+0.1)*i)) ) *100), 
+								 mLastTouchY + (float) ( (Math.cos( -1.5 +  now + ((orbitalCompression+0.1)*i)) ) *100), 
 								 5, mPaint);//SystemClock.elapsedRealtime()
 					orbitalCompression = 0.2f + (float)Math.sin( now )*0.2f;
 					//orbitalSeperation = (0.5f * (float) Math.sin((SystemClock.elapsedRealtime()*rotationSpeed)%360));
