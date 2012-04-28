@@ -95,7 +95,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 
 		private float now = 0;
 		private float nowOffset = 0;
-		private float orbitalCompression = 0.42f;
+		private float orbitalCompression = 0.2f;
 
         public SharedPreferences.OnSharedPreferenceChangeListener listener;
         
@@ -215,7 +215,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 			orbitType = (orbitType +1) % orbitNames.length;
 			//nowOffset = 0 - now;
 			now = 0;
-			orbitalCompression = 0.42f;
+			orbitalCompression = 0.0002f;
 			
 			
 			
@@ -460,14 +460,14 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 
         		int orbitalCount = 5;
 
-				if(Math.sin(now) < -0.0005)
+				if(Math.sin(now) < -0.01)
 				{
-					orbitalCompression -=  (float) Math.sin( now )*0.011f;
+					orbitalCompression +=  (float) Math.sin( now )*0.022f;
 				}
 
-				if(Math.sin(now) > 0.0005)
+				if(Math.sin(now) > 0.01)
 				{
-					orbitalCompression -=  (float) Math.sin( now )*0.011f;
+					orbitalCompression +=  (float) Math.sin( now )*0.022f;
 				}
 				//orbitalCompression += Math.sin(SystemClock.elapsedRealtime()/500)/100;
 				
@@ -488,15 +488,18 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	                    mPaint.setARGB(255, 0, 0, 255);            		
 	            	}
 	            	
-					float offset = now-(i*67.5f);
-					
-	                c.drawCircle( mLastTouchX + (float) ( (Math.sin( now + ((orbitalCompression+0.1)*i)-0.5) ) *100), 
-								 mLastTouchY + (float) ( (Math.cos( now + ((orbitalCompression+0.1)*i)-0.5) ) *100), 
+					float offset = now+(i*orbitalCompression) + 91f;
+					c.drawCircle( mLastTouchX + (float) ( (Math.sin( offset -0.0) ) *100), 
+								 mLastTouchY + (float) ( (Math.cos( offset -0.0) ) *100), 
 								 5, mPaint);//SystemClock.elapsedRealtime()
-					now -= 5.0f;
+					
+//	                c.drawCircle( mLastTouchX + (float) ( (Math.sin( offset + (orbitalCompression*i)-0.0) ) *100), 
+//								 mLastTouchY + (float) ( (Math.cos( offset + (orbitalCompression*i)-0.0) ) *100), 
+//								 5, mPaint);//SystemClock.elapsedRealtime()
+//					//now -= 5.0f;
 					//orbitalSeperation = (0.5f * (float) Math.sin((SystemClock.elapsedRealtime()*rotationSpeed)%360));
 	            }
-				now += 0.01f;
+				now += 0.1f;
 			}//windows late
 			
     }
