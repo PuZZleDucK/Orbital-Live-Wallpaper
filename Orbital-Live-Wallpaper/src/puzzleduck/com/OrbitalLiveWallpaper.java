@@ -338,7 +338,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 			if(orbitType == ORBIT_4_SIMPLE)
         	{
         		int orbitalCount = 8;
-                float orbitalSeperation = 67.5f;
+               // float orbitalSeperation = 67.5f;
 
 	            for(int i = 0; i < orbitalCount; i++)
 	            {
@@ -359,10 +359,12 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	                    mPaint.setARGB(255, 255, 255, 255);          		
 	            	}
 
-	                c.drawCircle( mLastTouchX + (float) ( (Math.sin( now ) ) *100), 
-								 mLastTouchY + (float) ( (Math.cos( now ) ) *100), 
+					float offset = now-(i*67.5f);
+					
+	                c.drawCircle( mLastTouchX + (float) ( (Math.sin( offset ) ) *100), 
+								 mLastTouchY + (float) ( (Math.cos( offset ) ) *100), 
 								 1+i, mPaint);//SystemClock.elapsedRealtime()
-	                now -= orbitalSeperation ;
+	              //  now -= orbitalSeperation ;
 	            }
 				
 				
