@@ -96,6 +96,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 		private float now = 0;
 		private float nowOffset = 0;
 		private float orbitalCompression = 0.2f;
+		private int dotStyle = 0;
 
         public SharedPreferences.OnSharedPreferenceChangeListener listener;
         
@@ -216,7 +217,20 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 			//nowOffset = 0 - now;
 			now = 0;
 			orbitalCompression = 0.2f;
-			
+
+			dotStyle = (dotStyle+1)%3;
+			switch(dotStyle)
+			{
+				case 0:
+					mPaint.setStyle(Paint.Style.FILL);
+					break;
+				case 1:
+					mPaint.setStyle(Paint.Style.STROKE);
+					break;
+				default:
+					mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+				break;
+			}
 			
 			
             super.onTouchEvent(event);
@@ -458,7 +472,8 @@ public class OrbitalLiveWallpaper extends WallpaperService {
                 //float orbitalSeperation = 67.5f;
 
 
-				mPaint.setStyle(Paint.Style.FILL);
+			//	mPaint.setStyle(Paint.Style.FILL);
+				mPaint.setARGB(255, 255, 255, 255);  
         		int orbitalCount = 5;
 
 				if(Math.sin(now) < -0.01)
@@ -477,16 +492,15 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	            	//mPaint.setStrokeWidth(10);
 	            	
 	            	if(i%3 == 0)
-	            	{
-	                    mPaint.setARGB(255, 255, 0, 0);            		
+	            	{          		
 	            	}
 	            	if(i%3 == 1)
 	            	{
-	                    mPaint.setARGB(255, 0, 255, 0);            		
+	                    //mPaint.setARGB(255, 0, 255, 0);            		
 	            	}
 	            	if(i%3 == 2)
 	            	{
-	                    mPaint.setARGB(255, 0, 0, 255);            		
+	                   // mPaint.setARGB(255, 0, 0, 255);            		
 	            	}
 	            	
 					float offset = now+(i*orbitalCompression) + 91f;
