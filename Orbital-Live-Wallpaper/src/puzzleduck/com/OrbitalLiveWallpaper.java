@@ -275,7 +275,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
         	if(orbitType == ORBIT_6_KNOT) 
         	{
         		int orbitalCount = 9;
-                float orbitalSeperation = 90f;
+                //float orbitalSeperation = 90f;
                 
 	            for(int i = 0; i < orbitalCount; i++)
 	            {
@@ -304,7 +304,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
         	if(orbitType == ORBIT_4_KNOT)
         	{
         		int orbitalCount = 8;
-                float orbitalSeperation = 67.5f;
+               // float orbitalSeperation = 67.5f;
                 
 	            for(int i = 0; i < orbitalCount; i++)
 	            {
@@ -324,12 +324,15 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	            	{
 	                    mPaint.setARGB(255, 255, 255, 255);          		
 	            	}
+					
+					float offset = now-(i*67.5f);
 	            	
-	                c.drawCircle( mLastTouchX + (float) ( (2+Math.cos( 2*now ) * Math.cos(now)) *100)-200, 
-	           		     mLastTouchY + (float) ( (2+Math.cos( 2*now ) * Math.sin(now)) *100)-200, 
+	                c.drawCircle( mLastTouchX + (float) ( (2+Math.cos( 2*offset ) * Math.cos(offset)) *100)-200, 
+	           		     mLastTouchY + (float) ( (2+Math.cos( 2*offset ) * Math.sin(offset)) *100)-200, 
 	           		     1+i, mPaint);//SystemClock.elapsedRealtime()
-	                now -= orbitalSeperation ;
+	               // now -= orbitalSeperation ;
 	            }
+				now += 0.01f;
         	}
 
 			if(orbitType == ORBIT_4_SIMPLE)
@@ -363,7 +366,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	            }
 				
 				
-				
+				now += 0.01f;
 				
 				
 				
@@ -401,7 +404,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 								 1+i, mPaint);//SystemClock.elapsedRealtime()
 	                now -= orbitalSeperation ;
 	            }
-			
+				now += 0.01f;
 			}//simple3
 			
 
@@ -438,7 +441,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 					//orbitalSeperation = (0.5f * (float) Math.sin((SystemClock.elapsedRealtime()*rotationSpeed)%360));
 	                now -= orbitalSeperation;
 	            }
-
+				now += 0.01f;
 			}//5 simple
 
 			if(orbitType == ORBIT_8)
@@ -483,7 +486,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 					now -= 5.0f;
 					//orbitalSeperation = (0.5f * (float) Math.sin((SystemClock.elapsedRealtime()*rotationSpeed)%360));
 	            }
-
+				now += 0.01f;
 			}//windows late
 			
     }
