@@ -292,11 +292,14 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	                    mPaint.setARGB(255, 0, 0, 255);            		
 	            	}
 	            	
-	                c.drawCircle( mLastTouchX + (float) ( (2+Math.cos( 3*now ) * Math.cos(2*now)) *100)-200, 
-	           		     mLastTouchY + (float) ( (2+Math.cos( 3*now ) * Math.sin(2*now)) *100)-200, 
+					float offset = now-(i*90);
+					
+	                c.drawCircle( mLastTouchX + (float) ( (2+Math.cos( 3*offset ) * Math.cos(2*offset )) *100)-200, 
+	           		     mLastTouchY + (float) ( (2+Math.cos( 3*offset ) * Math.sin(2*offset )) *100)-200, 
 	           		     1+i*2, mPaint);//SystemClock.elapsedRealtime()
-	                now -= orbitalSeperation ;
+	                //now -= orbitalSeperation ;
 	            }
+				now += 0.01f;
         	}
         	if(orbitType == ORBIT_4_KNOT)
         	{
