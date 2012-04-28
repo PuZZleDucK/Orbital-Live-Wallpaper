@@ -215,7 +215,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 			orbitType = (orbitType +1) % orbitNames.length;
 			//nowOffset = 0 - now;
 			now = 0;
-			orbitalCompression = 0.0002f;
+			orbitalCompression = 0.2f;
 			
 			
 			
@@ -458,6 +458,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
                 //float orbitalSeperation = 67.5f;
 
 
+				mPaint.setStyle(Paint.Style.FILL);
         		int orbitalCount = 5;
 
 				if(Math.sin(now) < -0.01)
