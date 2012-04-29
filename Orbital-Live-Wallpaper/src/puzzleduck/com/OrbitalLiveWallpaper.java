@@ -107,12 +107,13 @@ public class OrbitalLiveWallpaper extends WallpaperService {
         
         TargetEngine() {
             // Create a Paint to draw the lines for our 3D shape
-            final Paint paint = mPaint;
-            paint.setColor(0xffffffff);
-            paint.setAntiAlias(true);
-            paint.setStrokeWidth(2);//increased stroke... better thin
-            paint.setStrokeCap(Paint.Cap.ROUND);
-            paint.setStyle(Paint.Style.STROKE); 
+           // final Paint paint = mPaint;
+            mPaint.setColor(0xffffffff);
+            mPaint.setAntiAlias(true);
+            mPaint.setStrokeWidth(2);//increased stroke... better thin
+            mPaint.setStrokeCap(Paint.Cap.ROUND);
+            mPaint.setStyle(Paint.Style.STROKE); 
+			mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
 
 //    		Log.d(TAG, "set prefs listener" );
             mPrefs = OrbitalLiveWallpaper.this.getSharedPreferences(SHARED_PREFS_NAME, 0);
@@ -284,7 +285,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 				//nowOffset = 0 - now;
 				now = 0;
 				orbitalCompression = 0.2f;
-
+/*
 				dotStyle = (dotStyle+1)%3;
 				switch(dotStyle)
 				{
@@ -297,7 +298,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 					default:
 						mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
 						break;
-				}
+				}*/
 				orbitRadiusDiff = 5;
 			}// rad = 0;
 
