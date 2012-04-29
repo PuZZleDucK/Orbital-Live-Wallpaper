@@ -283,14 +283,16 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 			{
 
 				orbitType = (orbitType +1) % orbitNames.length;
-				orbitSpeed = orbitSpeed + 0.01f;
-				if(orbitSpeed > 0.06f)
+				orbitSpeed = orbitSpeed + 0.02f;
+				if(orbitSpeed > 0.1f)
 				{
 					orbitSpeed = 0.04f;
 				}
 				//nowOffset = 0 - now;
 				now = 0;
-				orbitalCompression = (0.22f * 6)* orbitSpeed;
+				orbitalCompression = (0.25f * 6)* orbitSpeed;
+				orbitalCompression = 0.2f;
+				orbitalCompression = 0.25f * orbitSpeed;
 /*
 				dotStyle = (dotStyle+1)%3;
 				switch(dotStyle)
@@ -501,8 +503,8 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 					int dotSize = i/5;
 					float offset = now-(i*5f);
 					
-	                c.drawCircle( mLastTouchX + (float) ( (Math.sin( offset + (10*i)) ) *orbitRadius), 
-								 mLastTouchY + (float) ( (Math.cos( offset + (10*i)) ) *orbitRadius), 
+	                c.drawCircle( mLastTouchX + (float) ( (Math.sin( offset ) ) *orbitRadius), 
+								 mLastTouchY + (float) ( (Math.cos( offset ) ) *orbitRadius), 
 								 1+(dotSize*4), mPaint);//SystemClock.elapsedRealtime()
 
 					//orbitalSeperation = (0.5f * (float) Math.sin((SystemClock.elapsedRealtime()*rotationSpeed)%360));
@@ -523,12 +525,12 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 
 				if(Math.sin(now) < -0.1)
 				{
-					orbitalCompression +=  ((float) Math.sin( now )*(0.25f * orbitSpeed));
+					orbitalCompression +=  ((float) Math.sin( now )*(0.2f * orbitSpeed));
 				}
 
 				if(Math.sin(now) > 0.1)
 				{
-					orbitalCompression +=  ((float) Math.sin( now )*(0.25f* orbitSpeed));
+					orbitalCompression +=  ((float) Math.sin( now )*(0.2f* orbitSpeed));
 				}
 				//orbitalCompression += Math.sin(SystemClock.elapsedRealtime()/500)/100;
 				
