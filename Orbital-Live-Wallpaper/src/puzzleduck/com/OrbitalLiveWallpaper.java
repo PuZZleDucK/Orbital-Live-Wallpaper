@@ -101,7 +101,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 		private float orbitalCompression = 0.2f;
 		private int dotStyle = 0;
 		private boolean inTransition = false;
-		private int orbitRadiusDiff = - 1;
+		private int orbitRadiusDiff = - 5;
 
         public SharedPreferences.OnSharedPreferenceChangeListener listener;
         
@@ -223,7 +223,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 			if(!inTransition)
 			{
 				inTransition = true;
-				orbitRadiusDiff = -2;
+				orbitRadiusDiff = -5;
 			}
 			
 			
@@ -298,7 +298,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 						mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
 						break;
 				}
-				orbitRadiusDiff = 2;
+				orbitRadiusDiff = 5;
 			}// rad = 0;
 
 			
@@ -347,7 +347,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	           		     1+i*2, mPaint);//SystemClock.elapsedRealtime()
 	                //now -= orbitalSeperation ;
 	            }
-				now += 0.01f;
+				now += 0.1f;
         	}
         	if(orbitType == ORBIT_4_KNOT)
         	{
@@ -380,7 +380,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	           		     1+i, mPaint);//SystemClock.elapsedRealtime()
 	               // now -= orbitalSeperation ;
 	            }
-				now += 0.01f;
+				now += 0.1f;
         	}
 
 			if(orbitType == ORBIT_4_SIMPLE)
@@ -416,7 +416,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	            }
 				
 				
-				now += 0.01f;
+				now += 0.1f;
 				
 				
 				
@@ -457,7 +457,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 								 1+i, mPaint);//SystemClock.elapsedRealtime()
 	                //now -= orbitalSeperation ;
 	            }
-				now += 0.01f;
+				now += 0.1f;
 			}//simple3
 			
 
@@ -497,7 +497,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 					//orbitalSeperation = (0.5f * (float) Math.sin((SystemClock.elapsedRealtime()*rotationSpeed)%360));
 	               // now -= orbitalSeperation;
 	            }
-				now += 0.01f;
+				now += 0.1f;
 			}//5 simple
 
 			if(orbitType == ORBIT_8)
