@@ -102,6 +102,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 		private int dotStyle = 0;
 		private boolean inTransition = false;
 		private int orbitRadiusDiff = - 5;
+		private float orbitSpeed = 0.05f;
 
         public SharedPreferences.OnSharedPreferenceChangeListener listener;
         
@@ -282,6 +283,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 			{
 
 				orbitType = (orbitType +1) % orbitNames.length;
+				orbitSpeed += 0.01f;
 				//nowOffset = 0 - now;
 				now = 0;
 				orbitalCompression = 0.2f;
@@ -323,7 +325,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 
         	if(orbitType == ORBIT_6_KNOT) 
         	{
-        		int orbitalCount = 9;
+        		int orbitalCount = 18;
                 //float orbitalSeperation = 90f;
                 
 	            for(int i = 0; i < orbitalCount; i++)
@@ -341,14 +343,14 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	                    mPaint.setARGB(255, 0, 0, 255);            		
 	            	}
 	            	
-					float offset = now-(i*90);
+					float offset = now-(i*45);
+					int dotSize = i/6;
 					
 	                c.drawCircle( mLastTouchX + (float) ( (2+Math.cos( 3*offset ) * Math.cos(2*offset )) * orbitRadius )-orbitDiameter, 
 								 mLastTouchY + (float) ( (2+Math.cos( 3*offset ) * Math.sin(2*offset )) *orbitRadius)-orbitDiameter, 
-	           		     1+i*2, mPaint);//SystemClock.elapsedRealtime()
+	           		     1+dotSize*4, mPaint);//SystemClock.elapsedRealtime()
 	                //now -= orbitalSeperation ;
 	            }
-				now += 0.1f;
         	}
         	if(orbitType == ORBIT_4_KNOT)
         	{
@@ -381,7 +383,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	           		     1+i, mPaint);//SystemClock.elapsedRealtime()
 	               // now -= orbitalSeperation ;
 	            }
-				now += 0.1f;
+				//now += 0.1f;
         	}
 
 			if(orbitType == ORBIT_4_SIMPLE)
@@ -417,7 +419,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	            }
 				
 				
-				now += 0.1f;
+				//now += 0.1f;
 				
 				
 				
@@ -458,7 +460,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 								 1+i, mPaint);//SystemClock.elapsedRealtime()
 	                //now -= orbitalSeperation ;
 	            }
-				now += 0.1f;
+				//now += 0.1f;
 			}//simple3
 			
 
@@ -498,7 +500,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 					//orbitalSeperation = (0.5f * (float) Math.sin((SystemClock.elapsedRealtime()*rotationSpeed)%360));
 	               // now -= orbitalSeperation;
 	            }
-				now += 0.1f;
+				//now += 0.1f;
 			}//5 simple
 
 			if(orbitType == ORBIT_8)
@@ -513,12 +515,12 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 
 				if(Math.sin(now) < -0.01)
 				{
-					orbitalCompression +=  (float) Math.sin( now )*0.022f;
+					orbitalCompression +=  ((float) Math.sin( now )*(0.22f * orbitSpeed));
 				}
 
 				if(Math.sin(now) > 0.01)
 				{
-					orbitalCompression +=  (float) Math.sin( now )*0.022f;
+					orbitalCompression +=  ((float) Math.sin( now )*(0.22f* orbitSpeed));
 				}
 				//orbitalCompression += Math.sin(SystemClock.elapsedRealtime()/500)/100;
 				
@@ -538,7 +540,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	                   // mPaint.setARGB(255, 0, 0, 255);            		
 	            	}
 	            	
-					float offset = now+(i*orbitalCompression) + 91f;
+					float offset = now+(i*orbitalCompression) + (orbitSpeed*55f);
 					c.drawCircle( mLastTouchX + (float) ( (Math.sin( offset -0.0) ) *orbitRadius), 
 								 mLastTouchY + (float) ( (Math.cos( offset -0.0) ) *orbitRadius), 
 								 5, mPaint);//SystemClock.elapsedRealtime()
@@ -549,9 +551,10 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 //					//now -= 5.0f;
 					//orbitalSeperation = (0.5f * (float) Math.sin((SystemClock.elapsedRealtime()*rotationSpeed)%360));
 	            }
-				now += 0.1f;
+				//now += 0.1f;
 			}//windows late
-			
+
+			now += 0.05f;
     }
         
 }//class
