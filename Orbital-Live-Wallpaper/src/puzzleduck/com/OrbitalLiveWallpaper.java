@@ -99,10 +99,15 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 		private float now = 0;
 		private float nowOffset = 0;
 		private float orbitalCompression = 0.2f;
-		private int dotStyle = 0;
+		private int dotColor = Color.WHITE;
+		private int dotColors[] = {Color.WHITE, Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW  };
 		private boolean inTransition = false;
 		private int orbitRadiusDiff = - 5;
 		private float orbitSpeed = 0.05f;
+		
+		//private int[] colortArray = new int{0,1};
+		//colorArray[0] = Color.WHITE;
+		//colorArray[1] =  Color.RED;
 
         public SharedPreferences.OnSharedPreferenceChangeListener listener;
         
@@ -290,8 +295,8 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 				}
 				//nowOffset = 0 - now;
 				now = 0;
-				orbitalCompression = (0.25f * 6)* orbitSpeed;
-				orbitalCompression = 0.2f;
+			//	orbitalCompression = (0.25f * 6)* orbitSpeed;
+			//	orbitalCompression = 0.2f;
 				orbitalCompression = 0.25f * orbitSpeed;
 /*
 				dotStyle = (dotStyle+1)%3;
