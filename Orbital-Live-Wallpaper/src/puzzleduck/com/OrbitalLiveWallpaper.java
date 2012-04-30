@@ -283,6 +283,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
         	float rotationSpeed = 0.00001f;
             now += rotationSpeed; 
 			
+			dotColor = 0;
 
 			if(orbitRadius == 0)
 			{
@@ -336,12 +337,17 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 
         	if(orbitType == ORBIT_6_KNOT) 
         	{
+				
         		int orbitalCount = 18;
                 //float orbitalSeperation = 90f;
                 
 	            for(int i = 0; i < orbitalCount; i++)
 	            {
-	            	if(i%3 == 0)
+					
+					mPaint.setColor(dotColors[dotColor]);
+					
+					dotColor = (dotColor + 1)%3;
+	            /*	if(i%3 == 0)
 	            	{
 	                    mPaint.setARGB(255, 255, 0, 0);            		
 	            	}
@@ -352,7 +358,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	            	if(i%3 == 2)
 	            	{
 	                    mPaint.setARGB(255, 0, 0, 255);            		
-	            	}
+	            	}*/
 	            	
 					float offset = now-(i*45);
 					int dotSize = i/6;
