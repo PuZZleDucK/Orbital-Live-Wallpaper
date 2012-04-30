@@ -376,6 +376,11 @@ public class OrbitalLiveWallpaper extends WallpaperService {
                 
 	            for(int i = 0; i < orbitalCount; i++)
 	            {
+
+					mPaint.setColor(dotColors[dotColor]);
+
+					dotColor = (dotColor + 1)%4;
+					/*
 	            	if(i%4 == 0)
 	            	{
 	                    mPaint.setARGB(255, 255, 0, 0);            		
@@ -391,7 +396,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	            	if(i%4 == 3)
 	            	{
 	                    mPaint.setARGB(255, 255, 255, 255);          		
-	            	}
+	            	}*/
 					int dotSize = i/4;
 					
 					float offset = now-(i*67.5f);
@@ -411,6 +416,11 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 
 	            for(int i = 0; i < orbitalCount; i++)
 	            {
+
+					mPaint.setColor(dotColors[dotColor]);
+
+					dotColor = (dotColor + 1)%4;
+					/*
 	            	if(i%4 == 0)
 	            	{
 	                    mPaint.setARGB(255, 255, 0, 0);            		
@@ -426,7 +436,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	            	if(i%4 == 3)
 	            	{
 	                    mPaint.setARGB(255, 255, 255, 255);          		
-	            	}
+	            	}*/
 
 					int dotSize = i/4;
 					float offset = now-(i*67.5f);
@@ -459,7 +469,10 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	            for(int i = 0; i < orbitalCount; i++)
 	            {
 
-	            	if(i%3 == 0)
+					mPaint.setColor(dotColors[dotColor]);
+
+					dotColor = (dotColor + 1)%3;
+	            	/*if(i%3 == 0)
 	            	{
 	                    mPaint.setARGB(255, 255, 0, 0);            		
 	            	}
@@ -470,7 +483,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	            	if(i%3 == 2)
 	            	{
 	                    mPaint.setARGB(255, 0, 0, 255);            		
-	            	}
+	            	}*/
 
 					int dotSize = i/3;
 					float offset = now-(i*90f);
@@ -498,7 +511,10 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	            for(int i = 0; i < orbitalCount; i++)
 	            {
 
-	            	if(i%3 == 0)
+					mPaint.setColor(dotColors[dotColor]);
+
+					dotColor = (dotColor + 1)%5;
+	            	/*if(i%3 == 0)
 	            	{
 	                    mPaint.setARGB(255, 255, 0, 0);            		
 	            	}
@@ -509,7 +525,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	            	if(i%3 == 2)
 	            	{
 	                    mPaint.setARGB(255, 0, 0, 255);            		
-	            	}
+	            	}*/
 
 					int dotSize = i/5;
 					float offset = now-(i*5f);
