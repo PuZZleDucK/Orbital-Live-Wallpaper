@@ -104,7 +104,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 		private boolean inTransition = false;
 		private int orbitRadiusDiff = - 5;
 		private float orbitSpeed = 0.05f;
-		
+		private int orbitalCount = 0;
 		//private int[] colortArray = new int{0,1};
 		//colorArray[0] = Color.WHITE;
 		//colorArray[1] =  Color.RED;
@@ -315,7 +315,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
         	if(orbitType == ORBIT_6_KNOT) 
         	{
 				
-        		int orbitalCount = 18;
+        		orbitalCount = 24;
                 
 	            for(int i = 0; i < orbitalCount; i++)
 	            {
@@ -334,7 +334,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
         	}
         	if(orbitType == ORBIT_4_KNOT)
         	{
-        		int orbitalCount = 8;
+        		orbitalCount = 12;
 	            for(int i = 0; i < orbitalCount; i++)
 	            {
 
@@ -353,7 +353,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 
 			if(orbitType == ORBIT_4_SIMPLE)
         	{
-        		int orbitalCount = 8;
+        		orbitalCount = 12;
 	            for(int i = 0; i < orbitalCount; i++)
 	            {
 					mPaint.setColor(dotColors[dotColor]);
@@ -374,7 +374,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 
 			if(orbitType == ORBIT_3_SIMPLE)
         	{
-        		int orbitalCount = 9;
+        		orbitalCount = 15;
                
 	            for(int i = 0; i < orbitalCount; i++)
 	            {
@@ -396,7 +396,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 
 			if(orbitType == ORBIT_5_SIMPLE)
         	{
-        		int orbitalCount = 20;
+        		orbitalCount = 20;
 	            for(int i = 0; i < orbitalCount; i++)
 	            {
 
@@ -416,7 +416,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 			if(orbitType == ORBIT_8)
         	{
 				mPaint.setARGB(255, 255, 255, 255);  
-        		int orbitalCount = 5;
+        		orbitalCount = 5;
 
 				if(Math.sin(now) < -0.1)
 				{
