@@ -105,7 +105,10 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 		private int orbitRadiusDiff = - 5;
 		private float orbitSpeed = 0.05f;
 		private int orbitalCount = 0;
-		private float dotSizeIncrement = 0.5f;
+		private float dotSizeIncrement = 1.0f;
+		
+		private int trailCount = 6;
+		private int setCount = 3;
 		//private int[] colortArray = new int{0,1};
 		//colorArray[0] = Color.WHITE;
 		//colorArray[1] =  Color.RED;
@@ -313,22 +316,21 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 
 			}
 			
-			int trailCount = 5;
 			
         	if(orbitType == ORBIT_6_KNOT) 
         	{
-				
-        		orbitalCount = 6*trailCount;
+				setCount = 6;
+        		orbitalCount = setCount*trailCount;
                 
 	            for(int i = 0; i < orbitalCount; i++)
 	            {
 					
 					mPaint.setColor(dotColors[dotColor]);
 					
-					dotColor = (dotColor + 1)%3;
+					dotColor = (dotColor + 1)%(setCount/2);
 	            	
 					float offset = now-(i*45);//to split out of function
-					int dotSize = i/6;
+					int dotSize = i/setCount;
 					
 	                c.drawCircle( mLastTouchX + (float) ( (2+Math.cos( 3*offset ) * Math.cos(2*offset )) * orbitRadius )-orbitDiameter, 
 								 mLastTouchY + (float) ( (2+Math.cos( 3*offset ) * Math.sin(2*offset )) *orbitRadius)-orbitDiameter, 
