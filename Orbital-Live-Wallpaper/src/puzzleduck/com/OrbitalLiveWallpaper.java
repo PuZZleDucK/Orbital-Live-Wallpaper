@@ -105,6 +105,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 		private int orbitRadiusDiff = - 5;
 		private float orbitSpeed = 0.05f;
 		private int orbitalCount = 0;
+		private float dotSizeIncrement = 0.5f;
 		//private int[] colortArray = new int{0,1};
 		//colorArray[0] = Color.WHITE;
 		//colorArray[1] =  Color.RED;
@@ -331,7 +332,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 					
 	                c.drawCircle( mLastTouchX + (float) ( (2+Math.cos( 3*offset ) * Math.cos(2*offset )) * orbitRadius )-orbitDiameter, 
 								 mLastTouchY + (float) ( (2+Math.cos( 3*offset ) * Math.sin(2*offset )) *orbitRadius)-orbitDiameter, 
-	           		     (1+dotSize)*2, mPaint);
+	           		     (1+dotSize)*dotSizeIncrement, mPaint);
 	            }
         	}
         	if(orbitType == ORBIT_4_KNOT)
@@ -349,7 +350,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	            	
 	                c.drawCircle( mLastTouchX + (float) ( (2+Math.cos( 2*offset ) * Math.cos(offset)) *orbitRadius )-orbitDiameter, 
 								 mLastTouchY + (float) ( (2+Math.cos( 2*offset ) * Math.sin(offset)) *orbitRadius )-orbitDiameter, 
-	           		     (1+dotSize)*2, mPaint);
+	           		     (1+dotSize)*dotSizeIncrement, mPaint);
 	            }
         	}
 
@@ -367,7 +368,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 					
 	                c.drawCircle( mLastTouchX + (float) ( (Math.sin( offset ) ) *orbitRadius), 
 								 mLastTouchY + (float) ( (Math.cos( offset ) ) *orbitRadius), 
-								 1+(dotSize*2), mPaint);
+								 1+(dotSize*dotSizeIncrement), mPaint);
 	            }
 				
         	}
@@ -390,7 +391,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 					
 	                c.drawCircle( mLastTouchX + (float) ( (Math.sin( offset ) ) *orbitRadius), 
 								 mLastTouchY + (float) ( (Math.cos( offset ) ) *orbitRadius), 
-								 1+(dotSize*2), mPaint);
+								 1+(dotSize*dotSizeIncrement), mPaint);
 	            }
 			}//simple3
 			
@@ -411,7 +412,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 					
 	                c.drawCircle( mLastTouchX + (float) ( (Math.sin( offset ) ) *orbitRadius), 
 								 mLastTouchY + (float) ( (Math.cos( offset ) ) *orbitRadius), 
-								 1+(dotSize*2), mPaint);
+								 (1+dotSize)*dotSizeIncrement, mPaint);
 	            }
 			}//5 simple
 
