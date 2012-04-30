@@ -8,6 +8,7 @@ import java.util.Random;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -23,8 +24,11 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.service.wallpaper.WallpaperService;
 import android.util.Log;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
+import android.view.WindowManager;
+import android.graphics.*;
 
 public class OrbitalLiveWallpaper extends WallpaperService {
     @Override
@@ -98,12 +102,14 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 
 		private float now = 0;
 		private float nowOffset = 0;
-		private float orbitalCompression = 0.0f;
+//		private float orbitalCompression = 0.0f;
 		private int dotColor = Color.WHITE;
 		private int dotColors[] = {Color.WHITE, Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW  };
 		private boolean inTransition = false;
 		private int orbitRadiusDiff = - 5;
 		private float orbitSpeed = 0.05f;
+
+		private float orbitalCompression = 0.125f;//2.5f * orbitSpeed;
 		private int orbitalCount = 0;
 		private float dotSizeIncrement = 1.0f;
 		
@@ -161,7 +167,19 @@ public class OrbitalLiveWallpaper extends WallpaperService {
             setTouchEventsEnabled(true);
            
             //maybe just if null??? .. using mPrefs now... hopefully this will be resolved now
-            SharedPreferences prefs = mPrefs;            
+            SharedPreferences prefs = mPrefs;       
+            
+            WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+            Display display = wm.getDefaultDisplay();
+
+           // Display display = getWindowManager().getDefaultDisplay();
+            Point size = new Point();  
+            int width = display.getWidth();
+            int height = display.getHeight();
+
+            
+            mLastTouchX =  width/2;
+            mLastTouchY = height/2;
         	//3d targets
             //flare settings:
            // flareOn = prefs.getBoolean("target_flare_on", true);
@@ -292,15 +310,15 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 			if(orbitRadius == 0)
 			{
 
-				orbitType = (orbitType +1) % orbitNames.length;
-				orbitSpeed = orbitSpeed + 0.02f;
-				if(orbitSpeed > 0.1f)
-				{
-					orbitSpeed = 0.04f;
-				}
+				orbitType = (orbitType +2) % orbitNames.length;
+				orbitSpeed = orbitSpeed + 0.03f;
+//				if(orbitSpeed > 0.5f)
+//				{
+//					orbitSpeed = 0.1f;
+//				}
 				//
 				now = 0;
-				orbitalCompression = 0.0f;
+				orbitalCompression = 0.125f;
 				orbitRadiusDiff = 5;
 			}// rad = 0;
 
@@ -429,27 +447,28 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 
 				if(Math.sin(now) < -0.1)
 				{
-					orbitalCompression +=  ((float) Math.sin( now )*(0.2f * orbitSpeed));
+					orbitalCompression +=  ((float) Math.sin( now ) * 0.2f)*orbitSpeed;//* (orbitSpeed/5)  //orbitSpeed
+//					orbitalCompression +=  ((float) Math.sin( now )*(0.2f * orbitSpeed));
 				}
 
 				if(Math.sin(now) > 0.1)
 				{
-					orbitalCompression +=  ((float) Math.sin( now )*(0.2f* orbitSpeed));
+					orbitalCompression +=  ((float) Math.sin( now ) * 0.2f)*orbitSpeed;
 				}
 				
 	            for(int i = 0; i < orbitalCount; i++)
 	            {
 
 					
-					float offset = now+(i*orbitalCompression) + (orbitSpeed*10f);
-					c.drawCircle( mLastTouchX + (float) ( (Math.sin( offset -orbitSpeed) ) *orbitRadius), 
-								 mLastTouchY + (float) ( (Math.cos( offset -orbitSpeed) ) *orbitRadius), 
+					float offset = now + (i * Math.abs(orbitalCompression)) ;  //+ (5) add rotation offset
+					c.drawCircle( mLastTouchX + (float) ( (Math.sin( offset+179f) ) *orbitRadius), 
+								 mLastTouchY + (float) ( (Math.cos( offset+179f) ) *orbitRadius), 
 								 5, mPaint);//SystemClock.elapsedRealtime()
 					
 	            }
 			}//windows late
 
-			now += 0.05f;
+			now += orbitSpeed;
     }
         
 }//class
