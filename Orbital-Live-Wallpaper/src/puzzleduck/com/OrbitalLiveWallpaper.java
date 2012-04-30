@@ -108,8 +108,11 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 		
 		private int currentScheme = 0;
 		private int colorSchemes[][] = {
-			{ Color.argb(255,255,255,255), Color.argb(255,255,255,255), Color.argb(255,255,255,255), Color.argb(255,255,255,255), Color.argb(255,255,255,255), Color.argb(255,255,255,255)},
-			{ Color.argb(255,255,255,255), Color.argb(255,0,0,255), Color.argb(255,0,255,255), Color.argb(255,255,0,255), Color.argb(255,255,0,0), Color.argb(255,255,255,0) }
+			{ Color.argb(255,255,255,255), Color.argb(255,255,255,255), Color.argb(255,255,255,255), Color.argb(255,255,255,255), Color.argb(255,255,255,255), Color.argb(255,255,255,255)},//white
+			{ Color.argb(255,0,0,255), Color.argb(255,255,0,0), Color.argb(255,0,0,255), Color.argb(255,255,0,0), Color.argb(255,0,0,255), Color.argb(255,255,0,0)},//fire and ice
+			{ Color.argb(255,255,0,255), Color.argb(255,0,0,255), Color.argb(255,255,0,0), Color.argb(255,255,0,255), Color.argb(255,0,0,255), Color.argb(255,0,0,255)},//imperial love jam
+			{ Color.argb(255,255,255,255), Color.argb(255,255,0,0), Color.argb(255,255,255,255), Color.argb(255,0,255,0), Color.argb(255,255,255,255), Color.argb(255,255,0,0)},//candy
+			{ Color.argb(255,255,255,255), Color.argb(255,0,0,255), Color.argb(255,0,255,255), Color.argb(255,255,0,255), Color.argb(255,255,0,0), Color.argb(255,255,255,0) }//colorful
 		};
 		private boolean inTransition = false;
 		private int orbitRadiusDiff = - 5;
@@ -346,7 +349,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 			
         	if(orbitType == ORBIT_6_KNOT) 
         	{
-				setCount = 6;
+				setCount = 4;
         		orbitalCount = setCount*trailCount;
                 
 	            for(int i = 0; i < orbitalCount; i++)
@@ -355,7 +358,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 				//	mPaint.setColor(dotColors[dotColor]);
 					mPaint.setColor(colorSchemes[currentScheme][dotColor]);
 					
-					dotColor = (dotColor + 1)%(setCount/2);
+					dotColor = (dotColor + 1)%(setCount);
 	            	
 					float offset = now-(i*45);//to split out of function
 					int dotSize = i/setCount;
@@ -457,7 +460,8 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 
 			if(orbitType == ORBIT_8)
         	{
-				mPaint.setARGB(255, 255, 255, 255);  
+				setCount = 5;
+				//mPaint.setARGB(255, 255, 255, 255);  
         		orbitalCount = 5;
 
 				if(Math.sin(now) < -0.1)
@@ -475,6 +479,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	            {
 
 					mPaint.setColor(colorSchemes[currentScheme][dotColor]);
+					dotColor = (dotColor + 1)%setCount;
 					
 					float offset = now + (i * Math.abs(orbitalCompression)) ;  //+ (5) add rotation offset
 					c.drawCircle( mLastTouchX + (float) ( (Math.sin( offset+179f) ) *orbitRadius), 
