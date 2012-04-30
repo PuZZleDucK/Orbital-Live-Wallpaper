@@ -109,10 +109,10 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 		private int currentScheme = 0;
 		private int colorSchemes[][] = {
 			{ Color.argb(255,255,255,255), Color.argb(255,255,255,255), Color.argb(255,255,255,255), Color.argb(255,255,255,255), Color.argb(255,255,255,255), Color.argb(255,255,255,255)},//white
-			{ Color.argb(255,0,0,255), Color.argb(255,255,0,0), Color.argb(255,0,0,255), Color.argb(255,255,0,0), Color.argb(255,0,0,255), Color.argb(255,255,0,0)},//fire and ice
-			{ Color.argb(255,255,0,255), Color.argb(255,0,0,255), Color.argb(255,255,0,0), Color.argb(255,255,0,255), Color.argb(255,0,0,255), Color.argb(255,0,0,255)},//imperial love jam
-			{ Color.argb(255,255,255,255), Color.argb(255,255,0,0), Color.argb(255,255,255,255), Color.argb(255,0,255,0), Color.argb(255,255,255,255), Color.argb(255,255,0,0)},//candy
-			{ Color.argb(255,255,255,255), Color.argb(255,0,0,255), Color.argb(255,0,255,255), Color.argb(255,255,0,255), Color.argb(255,255,0,0), Color.argb(255,255,255,0) }//colorful
+			{ Color.argb(255,220,200,20), Color.argb(255,80,30,120), Color.argb(255,160,50,200), Color.argb(255,190,50,150), Color.argb(255,230,10,30), Color.argb(255,240,50,5)},//Apache
+			{ Color.argb(255,255,255,255), Color.argb(255,45,128,124), Color.argb(255,45,128,124), Color.argb(255,45,128,124), Color.argb(255,45,128,124), Color.argb(255,45,128,124)},//slash.
+			{ Color.argb(255,255,99,9), Color.argb(255,201,0,22), Color.argb(255,255,181,21), Color.argb(255,255,99,9), Color.argb(255,201,0,22), Color.argb(255,255,181,21)},//ubuntu classic
+			{ Color.argb(255,101,16,89), Color.argb(255,255,99,9), Color.argb(255,201,0,22), Color.argb(255,101,16,89), Color.argb(255,255,99,9), Color.argb(255,201,0,22) }//Ubuntu purple
 		};
 		private boolean inTransition = false;
 		private int orbitRadiusDiff = - 5;
