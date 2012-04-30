@@ -98,7 +98,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 
 		private float now = 0;
 		private float nowOffset = 0;
-		private float orbitalCompression = 0.2f;
+		private float orbitalCompression = 0.0f;
 		private int dotColor = Color.WHITE;
 		private int dotColors[] = {Color.WHITE, Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW  };
 		private boolean inTransition = false;
@@ -300,7 +300,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 				}
 				//
 				now = 0;
-				orbitalCompression = 0.25f * orbitSpeed;
+				orbitalCompression = 0.0f;
 				orbitRadiusDiff = 5;
 			}// rad = 0;
 
