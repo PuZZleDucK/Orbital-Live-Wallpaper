@@ -105,6 +105,12 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 //		private float orbitalCompression = 0.0f;
 		private int dotColor = Color.WHITE;
 		private int dotColors[] = {Color.WHITE, Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW  };
+		
+		private int currentScheme = 0;
+		private int colorSchemes[][] = {
+			{ Color.argb(255,255,255,255), Color.argb(255,255,255,255), Color.argb(255,255,255,255), Color.argb(255,255,255,255), Color.argb(255,255,255,255), Color.argb(255,255,255,255)},
+			{ Color.argb(255,255,255,255), Color.argb(255,0,0,255), Color.argb(255,0,255,255), Color.argb(255,255,0,255), Color.argb(255,255,0,0), Color.argb(255,255,255,0) }
+		};
 		private boolean inTransition = false;
 		private int orbitRadiusDiff = - 5;
 		private float orbitSpeed = 0.05f;
@@ -310,16 +316,19 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 			if(orbitRadius == 0)
 			{
 
-				orbitType = (orbitType +2) % orbitNames.length;
+				orbitType = (orbitType +1) % orbitNames.length;
 				orbitSpeed = orbitSpeed + 0.03f;
-//				if(orbitSpeed > 0.5f)
-//				{
-//					orbitSpeed = 0.1f;
-//				}
+				if(orbitSpeed > 5f)
+				{
+					orbitSpeed = 0.01f;
+				}
 				//
 				now = 0;
 				orbitalCompression = 0.125f;
 				orbitRadiusDiff = 5;
+				
+				currentScheme = ( currentScheme + 1 ) % colorSchemes.length;
+				
 			}// rad = 0;
 
 			if(inTransition)
@@ -343,7 +352,8 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	            for(int i = 0; i < orbitalCount; i++)
 	            {
 					
-					mPaint.setColor(dotColors[dotColor]);
+				//	mPaint.setColor(dotColors[dotColor]);
+					mPaint.setColor(colorSchemes[currentScheme][dotColor]);
 					
 					dotColor = (dotColor + 1)%(setCount/2);
 	            	
@@ -362,7 +372,9 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	            for(int i = 0; i < orbitalCount; i++)
 	            {
 
-					mPaint.setColor(dotColors[dotColor]);
+					//mPaint.setColor(dotColors[dotColor]);
+
+					mPaint.setColor(colorSchemes[currentScheme][dotColor]);
 
 					dotColor = (dotColor + 1)%setCount;
 					int dotSize = i/setCount;
@@ -381,8 +393,9 @@ public class OrbitalLiveWallpaper extends WallpaperService {
         		orbitalCount = setCount * trailCount;
 	            for(int i = 0; i < orbitalCount; i++)
 	            {
-					mPaint.setColor(dotColors[dotColor]);
+					//mPaint.setColor(dotColors[dotColor]);
 
+					mPaint.setColor(colorSchemes[currentScheme][dotColor]);
 					dotColor = (dotColor + 1)%setCount;
 			
 					int dotSize = i/setCount;
@@ -405,8 +418,9 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	            for(int i = 0; i < orbitalCount; i++)
 	            {
 
-					mPaint.setColor(dotColors[dotColor]);
+					//mPaint.setColor(dotColors[dotColor]);
 
+					mPaint.setColor(colorSchemes[currentScheme][dotColor]);
 					dotColor = (dotColor + 1)%setCount;
 
 					int dotSize = i/setCount;
@@ -427,8 +441,9 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	            for(int i = 0; i < orbitalCount; i++)
 	            {
 
-					mPaint.setColor(dotColors[dotColor]);
+					//mPaint.setColor(dotColors[dotColor]);
 
+					mPaint.setColor(colorSchemes[currentScheme][dotColor]);
 					dotColor = (dotColor + 1)%setCount;
 
 					int dotSize = i/setCount;
@@ -459,13 +474,14 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	            for(int i = 0; i < orbitalCount; i++)
 	            {
 
+					mPaint.setColor(colorSchemes[currentScheme][dotColor]);
 					
 					float offset = now + (i * Math.abs(orbitalCompression)) ;  //+ (5) add rotation offset
 					c.drawCircle( mLastTouchX + (float) ( (Math.sin( offset+179f) ) *orbitRadius), 
 								 mLastTouchY + (float) ( (Math.cos( offset+179f) ) *orbitRadius), 
 								 5, mPaint);//SystemClock.elapsedRealtime()
 					
-	            }
+	            } 
 			}//windows late
 
 			now += orbitSpeed;
