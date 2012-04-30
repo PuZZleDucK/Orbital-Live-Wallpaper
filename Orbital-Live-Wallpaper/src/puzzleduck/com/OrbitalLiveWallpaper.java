@@ -339,14 +339,15 @@ public class OrbitalLiveWallpaper extends WallpaperService {
         	}
         	if(orbitType == ORBIT_4_KNOT)
         	{
-        		orbitalCount = 4*trailCount;
+				setCount=4;
+        		orbitalCount = setCount*trailCount;
 	            for(int i = 0; i < orbitalCount; i++)
 	            {
 
 					mPaint.setColor(dotColors[dotColor]);
 
-					dotColor = (dotColor + 1)%4;
-					int dotSize = i/4;
+					dotColor = (dotColor + 1)%setCount;
+					int dotSize = i/setCount;
 					
 					float offset = now-(i*67.5f);
 	            	
@@ -358,14 +359,15 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 
 			if(orbitType == ORBIT_4_SIMPLE)
         	{
-        		orbitalCount = 4 * trailCount;
+				setCount = 4;
+        		orbitalCount = setCount * trailCount;
 	            for(int i = 0; i < orbitalCount; i++)
 	            {
 					mPaint.setColor(dotColors[dotColor]);
 
-					dotColor = (dotColor + 1)%4;
+					dotColor = (dotColor + 1)%setCount;
 			
-					int dotSize = i/4;
+					int dotSize = i/setCount;
 					float offset = now-(i*67.5f);
 					
 	                c.drawCircle( mLastTouchX + (float) ( (Math.sin( offset ) ) *orbitRadius), 
@@ -379,16 +381,17 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 
 			if(orbitType == ORBIT_3_SIMPLE)
         	{
-        		orbitalCount = 3 * trailCount;
+				setCount = 3;
+        		orbitalCount = setCount * trailCount;
                
 	            for(int i = 0; i < orbitalCount; i++)
 	            {
 
 					mPaint.setColor(dotColors[dotColor]);
 
-					dotColor = (dotColor + 1)%3;
+					dotColor = (dotColor + 1)%setCount;
 
-					int dotSize = i/3;
+					int dotSize = i/setCount;
 					float offset = now-(i*90f);
 					
 	                c.drawCircle( mLastTouchX + (float) ( (Math.sin( offset ) ) *orbitRadius), 
@@ -401,15 +404,16 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 
 			if(orbitType == ORBIT_5_SIMPLE)
         	{
-        		orbitalCount = 5*trailCount;
+				setCount = 5;
+        		orbitalCount = setCount*trailCount;
 	            for(int i = 0; i < orbitalCount; i++)
 	            {
 
 					mPaint.setColor(dotColors[dotColor]);
 
-					dotColor = (dotColor + 1)%5;
+					dotColor = (dotColor + 1)%setCount;
 
-					int dotSize = i/5;
+					int dotSize = i/setCount;
 					float offset = now-(i*5f);
 					
 	                c.drawCircle( mLastTouchX + (float) ( (Math.sin( offset ) ) *orbitRadius), 
