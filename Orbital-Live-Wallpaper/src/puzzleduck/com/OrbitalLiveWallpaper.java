@@ -312,10 +312,12 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 
 			}
 			
+			int trailCount = 5;
+			
         	if(orbitType == ORBIT_6_KNOT) 
         	{
 				
-        		orbitalCount = 24;
+        		orbitalCount = 6*trailCount;
                 
 	            for(int i = 0; i < orbitalCount; i++)
 	            {
@@ -324,17 +326,17 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 					
 					dotColor = (dotColor + 1)%3;
 	            	
-					float offset = now-(i*45);
+					float offset = now-(i*45);//to split out of function
 					int dotSize = i/6;
 					
 	                c.drawCircle( mLastTouchX + (float) ( (2+Math.cos( 3*offset ) * Math.cos(2*offset )) * orbitRadius )-orbitDiameter, 
 								 mLastTouchY + (float) ( (2+Math.cos( 3*offset ) * Math.sin(2*offset )) *orbitRadius)-orbitDiameter, 
-	           		     (1+dotSize)*4, mPaint);
+	           		     (1+dotSize)*2, mPaint);
 	            }
         	}
         	if(orbitType == ORBIT_4_KNOT)
         	{
-        		orbitalCount = 12;
+        		orbitalCount = 4*trailCount;
 	            for(int i = 0; i < orbitalCount; i++)
 	            {
 
@@ -347,13 +349,13 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	            	
 	                c.drawCircle( mLastTouchX + (float) ( (2+Math.cos( 2*offset ) * Math.cos(offset)) *orbitRadius )-orbitDiameter, 
 								 mLastTouchY + (float) ( (2+Math.cos( 2*offset ) * Math.sin(offset)) *orbitRadius )-orbitDiameter, 
-	           		     (1+dotSize)*4, mPaint);
+	           		     (1+dotSize)*2, mPaint);
 	            }
         	}
 
 			if(orbitType == ORBIT_4_SIMPLE)
         	{
-        		orbitalCount = 12;
+        		orbitalCount = 4 * trailCount;
 	            for(int i = 0; i < orbitalCount; i++)
 	            {
 					mPaint.setColor(dotColors[dotColor]);
@@ -365,7 +367,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 					
 	                c.drawCircle( mLastTouchX + (float) ( (Math.sin( offset ) ) *orbitRadius), 
 								 mLastTouchY + (float) ( (Math.cos( offset ) ) *orbitRadius), 
-								 1+(dotSize*4), mPaint);
+								 1+(dotSize*2), mPaint);
 	            }
 				
         	}
@@ -374,7 +376,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 
 			if(orbitType == ORBIT_3_SIMPLE)
         	{
-        		orbitalCount = 15;
+        		orbitalCount = 3 * trailCount;
                
 	            for(int i = 0; i < orbitalCount; i++)
 	            {
@@ -388,7 +390,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 					
 	                c.drawCircle( mLastTouchX + (float) ( (Math.sin( offset ) ) *orbitRadius), 
 								 mLastTouchY + (float) ( (Math.cos( offset ) ) *orbitRadius), 
-								 1+(dotSize*4), mPaint);
+								 1+(dotSize*2), mPaint);
 	            }
 			}//simple3
 			
@@ -396,7 +398,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 
 			if(orbitType == ORBIT_5_SIMPLE)
         	{
-        		orbitalCount = 20;
+        		orbitalCount = 5*trailCount;
 	            for(int i = 0; i < orbitalCount; i++)
 	            {
 
@@ -409,7 +411,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 					
 	                c.drawCircle( mLastTouchX + (float) ( (Math.sin( offset ) ) *orbitRadius), 
 								 mLastTouchY + (float) ( (Math.cos( offset ) ) *orbitRadius), 
-								 1+(dotSize*4), mPaint);
+								 1+(dotSize*2), mPaint);
 	            }
 			}//5 simple
 
