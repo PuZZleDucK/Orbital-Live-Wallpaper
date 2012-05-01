@@ -38,8 +38,8 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 		this.onCreate();
 	}
 
-	public static final String SHARED_PREFS_NAME="orbital_lwp_settings";
-    private static final String TAG = "OrbitalLiveWallpaper";
+	//public static final String SHARED_PREFS_NAME="orbital_lwp_settings";
+    //private static final String TAG = "OrbitalLiveWallpaper";
 
 	public static int ORBIT_6_KNOT = 0;
 	public static int ORBIT_4_KNOT = 1;
@@ -69,8 +69,8 @@ public class OrbitalLiveWallpaper extends WallpaperService {
         return new TargetEngine();
     }
     
-    class TargetEngine extends Engine 
-        implements SharedPreferences.OnSharedPreferenceChangeListener {
+    class TargetEngine extends Engine {
+ //       implements SharedPreferences.OnSharedPreferenceChangeListener {
        
 		private final Handler mHandler = new Handler();
 
@@ -79,15 +79,9 @@ public class OrbitalLiveWallpaper extends WallpaperService {
         private float mTouchX = -1;
         private float mTouchY = -1;
 
-        private float mCenterX1;
-        private float mCenterY1;
+        //private float mCenterX1;
+        //private float mCenterY1;
 
-        private float mLeftTargetX;
-        private float mLeftTargetY;
-
-        private float mTopTargetX;
-        private float mTopTargetY;
-        
         private float mLastTouchX = 239;//indent initial display
         private float mLastTouchY = 239;
         
@@ -101,10 +95,9 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 		
 
 		private float now = 0;
-		private float nowOffset = 0;
 //		private float orbitalCompression = 0.0f;
 		private int dotColor = Color.WHITE;
-		private int dotColors[] = {Color.WHITE, Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW  };
+	//	private int dotColors[] = {Color.WHITE, Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW  };
 		
 		private int currentScheme = 0;
 		private int colorSchemes[][] = {
@@ -133,12 +126,12 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 		//colorArray[0] = Color.WHITE;
 		//colorArray[1] =  Color.RED;
 
-        public SharedPreferences.OnSharedPreferenceChangeListener listener;
+      //  public SharedPreferences.OnSharedPreferenceChangeListener listener;
         
         TargetEngine() {
             // Create a Paint to draw the lines for our 3D shape
            // final Paint paint = mPaint;
-            mPaint.setColor(0xffffffff);
+            //mPaint.setColor(0xffffffff);
             mPaint.setAntiAlias(true);
             mPaint.setStrokeWidth(2);//increased stroke... better thin
             mPaint.setStrokeCap(Paint.Cap.ROUND);
@@ -146,12 +139,12 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 			mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
 
 //    		Log.d(TAG, "set prefs listener" );
-            mPrefs = OrbitalLiveWallpaper.this.getSharedPreferences(SHARED_PREFS_NAME, 0);
-            listener = (SharedPreferences.OnSharedPreferenceChangeListener)this;
-            mPrefs.registerOnSharedPreferenceChangeListener(this);
-            onSharedPreferenceChanged(mPrefs, null);
+            //mPrefs = OrbitalLiveWallpaper.this.getSharedPreferences(SHARED_PREFS_NAME, 0);
+            //listener = (SharedPreferences.OnSharedPreferenceChangeListener)this;
+           // mPrefs.registerOnSharedPreferenceChangeListener(this);
+           // onSharedPreferenceChanged(mPrefs, null);
         }
-
+/*
         public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
         	//
 //    		Log.d(TAG, " prefs change" );
@@ -172,7 +165,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
             
             onDestroy();
             onCreate(getSurfaceHolder());
-        }
+        }*/
 
 
         @Override
@@ -181,13 +174,13 @@ public class OrbitalLiveWallpaper extends WallpaperService {
             setTouchEventsEnabled(true);
            
             //maybe just if null??? .. using mPrefs now... hopefully this will be resolved now
-            SharedPreferences prefs = mPrefs;       
+            //SharedPreferences prefs = mPrefs;       
             
             WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
             Display display = wm.getDefaultDisplay();
 
            // Display display = getWindowManager().getDefaultDisplay();
-            Point size = new Point();  
+            //Point size = new Point();  
             int width = display.getWidth();
             int height = display.getHeight();
 
@@ -220,12 +213,12 @@ public class OrbitalLiveWallpaper extends WallpaperService {
         @Override
         public void onSurfaceChanged(SurfaceHolder holder, int format, int width, int height) {
             super.onSurfaceChanged(holder, format, width, height);
-            mCenterX1 = width/2; 
+          /*  mCenterX1 = width/2; 
             mCenterY1 = height/2;
             mLeftTargetX = width/2;
             mLeftTargetY = height/2;
             mTopTargetX = width/2;
-            mTopTargetY = height/2;
+            mTopTargetY = height/2;*/
             drawFrame();
         }
 
@@ -300,11 +293,11 @@ public class OrbitalLiveWallpaper extends WallpaperService {
         	   if (mTouchX >=0 && mTouchY >= 0) {                
 
 	        	// get relative dirs
-	                float diffX = mTouchX - mLastTouchX;
+	              /*  float diffX = mTouchX - mLastTouchX;
 	                float diffY = mTouchY - mLastTouchY;
 	                mCenterY1 = mCenterY1 + diffY;
 	                mCenterX1 = mCenterX1 + diffX;
-	                
+	                */
 	                //store for next
 	                mLastTouchX = mTouchX;
 	                mLastTouchY = mTouchY;            
@@ -512,7 +505,4 @@ public class OrbitalLiveWallpaper extends WallpaperService {
         
 }//class
 		
-
-
-    
 }

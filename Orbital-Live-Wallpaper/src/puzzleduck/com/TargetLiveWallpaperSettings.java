@@ -20,27 +20,28 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 
-public class TargetLiveWallpaperSettings extends PreferenceActivity
-    implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class TargetLiveWallpaperSettings {
+ //extends PreferenceActivity
+   // implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     @Override
     protected void onCreate(Bundle newBundle) {
-        super.onCreate(newBundle);
-        getPreferenceManager().setSharedPreferencesName(OrbitalLiveWallpaper.SHARED_PREFS_NAME);
-        addPreferencesFromResource(R.xml.lwp_settings);
+        //super.onCreate(newBundle);
+        //getPreferenceManager().setSharedPreferencesName(OrbitalLiveWallpaper.SHARED_PREFS_NAME);
+        //addPreferencesFromResource(R.xml.lwp_settings);
         
-        getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+        //getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
     }
 
     @Override 
     protected void onResume() { 
-        super.onResume();
+        //super.onResume();
     }
 
     @Override
     protected void onDestroy() {
-        getPreferenceManager().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
-        super.onDestroy();
+        //getPreferenceManager().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
+        //super.onDestroy();
     }
 
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
