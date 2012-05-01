@@ -9,7 +9,7 @@ public class OrbitalLiveWallpaperActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        setTitle("Phone mod");
+        setTitle("Orbital Live Wallpaper");
     }
 }
 
