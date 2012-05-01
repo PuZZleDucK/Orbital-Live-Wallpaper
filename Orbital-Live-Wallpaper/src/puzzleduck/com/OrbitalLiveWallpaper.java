@@ -118,6 +118,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 			{ Color.argb(255,255,99,9), Color.argb(255,201,0,22), Color.argb(255,255,181,21), Color.argb(255,255,99,9), Color.argb(255,201,0,22), Color.argb(255,255,181,21)},//ubuntu classic
 			{ Color.argb(255,101,16,89), Color.argb(255,255,99,9), Color.argb(255,201,0,22), Color.argb(255,101,16,89), Color.argb(255,255,99,9), Color.argb(255,201,0,22) }//Ubuntu purple
 		};
+		private String[] colorSchemeNames = {"Win8","XDA","Cyanogen","FireFox","Apache","/.","Ubuntu1","Ubuntu2"};
 		private boolean inTransition = false;
 		private int orbitRadiusDiff = - 5;
 		private float orbitSpeed = 0.05f;
@@ -323,7 +324,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 			if(orbitRadius == 0)
 			{
 
-				orbitType = (orbitType +1) % orbitNames.length;
+				orbitType =  ((int)SystemClock.elapsedRealtime()) % orbitNames.length;
 				orbitSpeed = orbitSpeed + 0.03f;
 				if(orbitSpeed > 5f)
 				{
@@ -488,7 +489,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 					float offset = now + (i * Math.abs(orbitalCompression)) ;  //+ (5) add rotation offset
 					c.drawCircle( mLastTouchX + (float) ( (Math.sin( offset+179f) ) *orbitRadius), 
 								 mLastTouchY + (float) ( (Math.cos( offset+179f) ) *orbitRadius), 
-								 5, mPaint);//SystemClock.elapsedRealtime()
+								 5, mPaint);//
 					
 	            } 
 			}//windows late
