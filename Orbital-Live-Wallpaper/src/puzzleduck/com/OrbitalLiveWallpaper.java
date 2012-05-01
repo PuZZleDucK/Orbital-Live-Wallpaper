@@ -316,8 +316,8 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 
 
         void drawOrbital(Canvas c) {
-        	float rotationSpeed = 0.00001f;
-            now += rotationSpeed; 
+        //	float rotationSpeed = 0.00001f;
+          //  now += rotationSpeed; 
 			
 			dotColor = 0;
 
@@ -325,17 +325,17 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 			{
 
 				orbitType =  ((int)SystemClock.elapsedRealtime()) % orbitNames.length;
-				orbitSpeed = orbitSpeed + 0.03f;
-				if(orbitSpeed > 5f)
-				{
-					orbitSpeed = 0.01f;
-				}
+				orbitSpeed = 0.01f * (SystemClock.elapsedRealtime() % 500) ;
+				//if(orbitSpeed > 5f)
+				//{
+				//	orbitSpeed = 0.01f;
+				//}
 				//
 				now = 0;
 				orbitalCompression = 0.125f;
 				orbitRadiusDiff = 5;
 				
-				currentScheme = ( currentScheme + 1 ) % colorSchemes.length;
+				currentScheme = ((int)SystemClock.elapsedRealtime()) % colorSchemes.length;
 				
 			}// rad = 0;
 
