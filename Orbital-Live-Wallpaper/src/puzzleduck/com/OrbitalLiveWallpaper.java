@@ -324,8 +324,9 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 			if(orbitRadius == 0)
 			{
 
+				trailCount =  (((int)SystemClock.elapsedRealtime()) % 8)+2;
 				orbitType =  ((int)SystemClock.elapsedRealtime()) % orbitNames.length;
-				orbitSpeed = 0.01f * (SystemClock.elapsedRealtime() % 500) ;
+				orbitSpeed = 0.01f * ((SystemClock.elapsedRealtime() % 500) -250);
 				//if(orbitSpeed > 5f)
 				//{
 				//	orbitSpeed = 0.01f;
@@ -339,6 +340,18 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 				
 			}// rad = 0;
 
+			if(orbitRadius < 100)
+			{
+				mPaint.setAlpha(225 - (orbitRadius * 2));
+				mPaint.setColor(colorSchemes[currentScheme][0]);
+				mPaint.setTextSize(50);
+				//mPaint.getTextWidths();
+				c.drawText(colorSchemeNames[currentScheme],
+				           mLastTouchX - 50, 
+						   mLastTouchY + 150, 
+						   mPaint);
+			}
+			
 			if(inTransition)
 			{
 				orbitRadius += orbitRadiusDiff;
