@@ -2,41 +2,20 @@
  
 package puzzleduck.com;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Random;
-
-
-import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Path;
-import android.graphics.Rect;
-import android.graphics.RectF;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.service.wallpaper.WallpaperService;
-import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.WindowManager;
-import android.graphics.*;
 
 public class OrbitalLiveWallpaper extends WallpaperService {
-//    @Override
-//	public void onConfigurationChanged(Configuration newConfig) {
-//
-//    	super.onConfigurationChanged(newConfig);
-//		this.onCreate();
-//	}
 
     private static float mTouchX = -1;
     private static float mTouchY = -1;
@@ -58,17 +37,6 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	public static int orbitRadius = 100;
 	public static int orbitDiameter = orbitRadius * 2;
     
-
-//    @Override
-//    public void onCreate() {
-//        super.onCreate();
-//    }
-
-//    @Override
-//    public void onDestroy() {
-//        super.onDestroy();
-//    }
-//
     @Override
     public Engine onCreateEngine() {
         return new TargetEngine();
@@ -84,14 +52,9 @@ public class OrbitalLiveWallpaper extends WallpaperService {
             }
         };
         private boolean mVisible;
-        private SharedPreferences mPrefs;
-		
-
+        
 		private float now = 0;
-//		private float orbitalCompression = 0.0f;
 		private int dotColor = Color.WHITE;
-	//	private int dotColors[] = {Color.WHITE, Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW  };
-		
 		private int currentScheme = 0;
 		private int colorSchemes[][] = { 
 			{ Color.argb(255,255,255,255), Color.argb(255,255,255,255), Color.argb(255,255,255,255), Color.argb(255,255,255,255), Color.argb(255,255,255,255), Color.argb(255,255,255,255)},//white
@@ -104,10 +67,10 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 			{ Color.argb(255,255,99,9), Color.argb(255,201,0,22), Color.argb(255,255,181,21), Color.argb(255,255,99,9), Color.argb(255,201,0,22), Color.argb(255,255,181,21)},//ubuntu classic
 			{ Color.argb(255,101,16,89), Color.argb(255,255,99,9), Color.argb(255,201,0,22), Color.argb(255,101,16,89), Color.argb(255,255,99,9), Color.argb(255,201,0,22) }//Ubuntu purple
 		};
-		private String[] colorSchemeNames = {"White","XDA","Cyanogen","FireFox","Apache","/.","Ubuntu1","Ubuntu2"};
+//		private String[] colorSchemeNames = {"White","XDA","Cyanogen","FireFox","Apache","/.","Ubuntu1","Ubuntu2"};
 		private boolean inTransition = false;
-		private int orbitRadiusDiff = - 5;
-		private float orbitSpeed = 0.1f;
+		private int orbitRadiusDiff = - 5;//start ready to compress
+		private float orbitSpeed = 0.1f;//start average screen
 
 		private float orbitalCompression = 0.125f;//2.5f * orbitSpeed;
 		private int orbitalCount = 0;
@@ -250,18 +213,6 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 				
 				currentScheme = rng.nextInt(colorSchemes.length);
 			}// rad = 0;
-
-//			if(orbitRadius < 100)//in transition - ditching text display... looks crusty
-//			{
-//				mPaint.setAlpha(225 - (orbitRadius * 2));
-//				mPaint.setColor(colorSchemes[currentScheme][0]);
-//				mPaint.setTextSize(50);
-//				//mPaint.getTextWidths();
-//				c.drawText(colorSchemeNames[currentScheme],
-//				           mLastTouchX - 50, 
-//						   mLastTouchY + 150, 
-//						   mPaint);
-//			}
 			
 			if(inTransition)
 			{
