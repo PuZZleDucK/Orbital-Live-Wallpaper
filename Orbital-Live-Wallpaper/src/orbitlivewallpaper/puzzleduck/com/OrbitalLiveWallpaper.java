@@ -329,7 +329,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 				setCount = 5;
         		orbitalCount = 5;
 
-				if(Math.sin(now) < -0.1 || Math.sin(now) > 0.1)
+				if(Math.sin(now) < -0.1 || Math.sin(now) > 0.1)//compensate for orientation (or better yet gyro) in next release instead of hard coding 179
 				{
 					orbitalCompression +=  ((float) Math.sin( now ) * 0.2f)*orbitSpeed;//* (orbitSpeed/5)  //orbitSpeed
 				}
