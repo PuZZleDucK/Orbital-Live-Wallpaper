@@ -228,7 +228,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 			
         	if(orbitType == ORBIT_6_KNOT) 
         	{
-				setCount = 4;
+				setCount = 3;
         		orbitalCount = setCount*trailCount;
                 
 	            for(int i = 0; i < orbitalCount; i++)
