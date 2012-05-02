@@ -38,9 +38,6 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 		this.onCreate();
 	}
 
-	//public static final String SHARED_PREFS_NAME="orbital_lwp_settings";
-    //private static final String TAG = "OrbitalLiveWallpaper";
-
 	public static int ORBIT_6_KNOT = 0;
 	public static int ORBIT_4_KNOT = 1;
 	public static int ORBIT_4_SIMPLE = 2;
@@ -48,8 +45,10 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	public static int ORBIT_5_SIMPLE = 4;
 	public static int ORBIT_8 = 5;
 	public static String[] orbitNames = {"3 knot","4 knot","4 simple","3 simple","5 simple","Windows8"};
+	private float[][] orbitSpeeds = { {0.01f,0.03f,0.05f,0.07f,0.1f}, {0.01f,0.03f,0.05f,0.1f,0.2f,0.3f,0.5f}, {0.05f,0.1f,0.2f,0.3f,0.5f,0.7f,1.0f,1.5f,1.7f}, {0.05f,0.1f,0.2f,0.3f,0.5f,0.7f,1.0f,1.5f,1.9f}, {0.05f,0.1f,0.2f,0.3f,0.5f,0.7f,1.0f,1.5f}, {0.01f,0.03f,0.05f,0.1f,0.2f,0.3f,0.5f} };
 	public static int orbitType = orbitNames.length - 1;  
 	
+
 	public static int orbitRadius = 100;
 	public static int orbitDiameter = orbitRadius * 2;
     
@@ -79,9 +78,6 @@ public class OrbitalLiveWallpaper extends WallpaperService {
         private float mTouchX = -1;
         private float mTouchY = -1;
 
-        //private float mCenterX1;
-        //private float mCenterY1;
-
         private float mLastTouchX = 239;//indent initial display
         private float mLastTouchY = 239;
         
@@ -100,7 +96,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	//	private int dotColors[] = {Color.WHITE, Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW  };
 		
 		private int currentScheme = 0;
-		private int colorSchemes[][] = {
+		private int colorSchemes[][] = { 
 			{ Color.argb(255,255,255,255), Color.argb(255,255,255,255), Color.argb(255,255,255,255), Color.argb(255,255,255,255), Color.argb(255,255,255,255), Color.argb(255,255,255,255)},//white
 			{ Color.argb(255,195,160,20), Color.argb(255,66,41,8), Color.argb(255,66,41,8), Color.argb(255,66,41,8), Color.argb(255,66,41,8), Color.argb(255,255,255,255)},//xda
 			{ Color.argb(255,98,215,230), Color.argb(255,150,195,200), Color.argb(255,98,215,230), Color.argb(255,60,170,180), Color.argb(255,98,215,230), Color.argb(255,255,255,255)},//cyanogen
@@ -111,10 +107,10 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 			{ Color.argb(255,255,99,9), Color.argb(255,201,0,22), Color.argb(255,255,181,21), Color.argb(255,255,99,9), Color.argb(255,201,0,22), Color.argb(255,255,181,21)},//ubuntu classic
 			{ Color.argb(255,101,16,89), Color.argb(255,255,99,9), Color.argb(255,201,0,22), Color.argb(255,101,16,89), Color.argb(255,255,99,9), Color.argb(255,201,0,22) }//Ubuntu purple
 		};
-		private String[] colorSchemeNames = {"Win8","XDA","Cyanogen","FireFox","Apache","/.","Ubuntu1","Ubuntu2"};
+		private String[] colorSchemeNames = {"White","XDA","Cyanogen","FireFox","Apache","/.","Ubuntu1","Ubuntu2"};
 		private boolean inTransition = false;
 		private int orbitRadiusDiff = - 5;
-		private float orbitSpeed = 0.05f;
+		private float orbitSpeed = 0.0f;
 
 		private float orbitalCompression = 0.125f;//2.5f * orbitSpeed;
 		private int orbitalCount = 0;
@@ -122,75 +118,26 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 		
 		private int trailCount = 6;
 		private int setCount = 3;
-		//private int[] colortArray = new int{0,1};
-		//colorArray[0] = Color.WHITE;
-		//colorArray[1] =  Color.RED;
-
-      //  public SharedPreferences.OnSharedPreferenceChangeListener listener;
         
         TargetEngine() {
-            // Create a Paint to draw the lines for our 3D shape
-           // final Paint paint = mPaint;
-            //mPaint.setColor(0xffffffff);
             mPaint.setAntiAlias(true);
             mPaint.setStrokeWidth(2);//increased stroke... better thin
             mPaint.setStrokeCap(Paint.Cap.ROUND);
             mPaint.setStyle(Paint.Style.STROKE); 
 			mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-
-//    		Log.d(TAG, "set prefs listener" );
-            //mPrefs = OrbitalLiveWallpaper.this.getSharedPreferences(SHARED_PREFS_NAME, 0);
-            //listener = (SharedPreferences.OnSharedPreferenceChangeListener)this;
-           // mPrefs.registerOnSharedPreferenceChangeListener(this);
-           // onSharedPreferenceChanged(mPrefs, null);
         }
-/*
-        public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-        	//
-//    		Log.d(TAG, " prefs change" );
-            //flare settings:
-            //flareOn = prefs.getBoolean("target_flare_on", true);
-
-            Resources myResources;
-            myResources = getBaseContext().getResources();
-           // mCursorImage = BitmapFactory.decodeResource(myResources, getResources().getIdentifier( getPackageName() + ":drawable/"+cursor, null, null));
-
-            //restart engine here
-            OrbitalLiveWallpaper.this.onDestroy();
-            OrbitalLiveWallpaper.this.onCreate();
-            OrbitalLiveWallpaper.TargetEngine.this.onDestroy();
-            OrbitalLiveWallpaper.TargetEngine.this.onCreate(getSurfaceHolder());
-//            TargetLiveWallpaper.TargetEngine.this.onSurfaceChanged(getSurfaceHolder(), 0, 0, 0);
-            drawFrame();
-            
-            onDestroy();
-            onCreate(getSurfaceHolder());
-        }*/
-
-
         @Override
         public void onCreate(SurfaceHolder surfaceHolder) {
             super.onCreate(surfaceHolder);
             setTouchEventsEnabled(true);
            
-            //maybe just if null??? .. using mPrefs now... hopefully this will be resolved now
-            //SharedPreferences prefs = mPrefs;       
-            
             WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
             Display display = wm.getDefaultDisplay();
 
-           // Display display = getWindowManager().getDefaultDisplay();
-            //Point size = new Point();  
             int width = display.getWidth();
             int height = display.getHeight();
-
-            
             mLastTouchX =  width/2;
             mLastTouchY = height/2;
-        	//3d targets
-            //flare settings:
-           // flareOn = prefs.getBoolean("target_flare_on", true);
- 
             
         }
 
@@ -213,12 +160,6 @@ public class OrbitalLiveWallpaper extends WallpaperService {
         @Override
         public void onSurfaceChanged(SurfaceHolder holder, int format, int width, int height) {
             super.onSurfaceChanged(holder, format, width, height);
-          /*  mCenterX1 = width/2; 
-            mCenterY1 = height/2;
-            mLeftTargetX = width/2;
-            mLeftTargetY = height/2;
-            mTopTargetX = width/2;
-            mTopTargetY = height/2;*/
             drawFrame();
         }
 
@@ -237,7 +178,6 @@ public class OrbitalLiveWallpaper extends WallpaperService {
         @Override
         public void onOffsetsChanged(float xOffset, float yOffset,
                 float xStep, float yStep, int xPixels, int yPixels) {
-//            mOffset = xOffset;
             drawFrame();
         }
 
@@ -253,16 +193,11 @@ public class OrbitalLiveWallpaper extends WallpaperService {
                 mTouchX = -1;
                 mTouchY = -1;
             }
-			
-
-			
 			if(!inTransition)
 			{
 				inTransition = true;
 				orbitRadiusDiff = -5;
 			}
-			
-			
             super.onTouchEvent(event);
         }
 
@@ -275,8 +210,6 @@ public class OrbitalLiveWallpaper extends WallpaperService {
                 if (c != null) {
                 updateTouchPoint(c);
                     	drawOrbital(c);
-						
-                  
                 }
             } finally { 
                 if (c != null) holder.unlockCanvasAndPost(c);
@@ -291,13 +224,6 @@ public class OrbitalLiveWallpaper extends WallpaperService {
         
         void updateTouchPoint(Canvas c) {
         	   if (mTouchX >=0 && mTouchY >= 0) {                
-
-	        	// get relative dirs
-	              /*  float diffX = mTouchX - mLastTouchX;
-	                float diffY = mTouchY - mLastTouchY;
-	                mCenterY1 = mCenterY1 + diffY;
-	                mCenterX1 = mCenterX1 + diffX;
-	                */
 	                //store for next
 	                mLastTouchX = mTouchX;
 	                mLastTouchY = mTouchY;            
@@ -317,19 +243,20 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 			if(orbitRadius == 0)
 			{
 
-				trailCount =  (((int)SystemClock.elapsedRealtime()) % 8)+2;
-				orbitType =  ((int)SystemClock.elapsedRealtime()) % orbitNames.length;
-				orbitSpeed = 0.01f * ((SystemClock.elapsedRealtime() % 500) -250);
-				//if(orbitSpeed > 5f)
-				//{
-				//	orbitSpeed = 0.01f;
-				//}
-				//
-				now = 0;
+				Random rng = new Random();
+				rng.setSeed(SystemClock.elapsedRealtime());
+
+				trailCount =  rng.nextInt(8) +3;
+				orbitType =  rng.nextInt(orbitNames.length);
+				
+				int speedIndex = rng.nextInt( orbitSpeeds[orbitType].length );
+				orbitSpeed = orbitSpeeds[orbitType][speedIndex] ;
+				
+				now = 0;//removed for continue//replaced for reliability
 				orbitalCompression = 0.125f;
 				orbitRadiusDiff = 5;
 				
-				currentScheme = ((int)SystemClock.elapsedRealtime()) % colorSchemes.length;
+				currentScheme = rng.nextInt(colorSchemes.length);
 				
 			}// rad = 0;
 
@@ -365,8 +292,6 @@ public class OrbitalLiveWallpaper extends WallpaperService {
                 
 	            for(int i = 0; i < orbitalCount; i++)
 	            {
-					
-				//	mPaint.setColor(dotColors[dotColor]);
 					mPaint.setColor(colorSchemes[currentScheme][dotColor]);
 					
 					dotColor = (dotColor + 1)%(setCount);
