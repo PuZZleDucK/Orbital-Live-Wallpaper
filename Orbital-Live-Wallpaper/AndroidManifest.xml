@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- /*
+ * Orbital Live Wallpaper
+ *
+ * Copyright (C) 2012 PuZZleDucK (PuZZleDucK@gmail.com)
+ * 
+ *	This program is free software; you can redistribute it and/or
+ *	modify it under the terms of the GNU General Public License version
+ *	2 as published by the Free Software Foundation.
+ *
+ * This live wallpaper was originally based on the target live wallpaper by PuZZleDucK
+ *
+ */ -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="orbitlivewallpaper.puzzleduck.com"
     android:versionCode="1"
