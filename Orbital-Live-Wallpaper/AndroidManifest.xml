@@ -12,7 +12,7 @@
  *
  */ -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="orbitlivewallpaper.puzzleduck.com"
+    package="orbitlivewallpaperfree.puzzleduck.com"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -24,7 +24,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" android:debuggable="false">
         <activity
-            android:name="orbitlivewallpaper.puzzleduck.com.OrbitalLiveWallpaperActivity"
+            android:name=".OrbitalLiveWallpaperActivityvity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,7 +36,7 @@
 		<service
             android:label="@string/app_name"
             android:permission="android.permission.BIND_WALLPAPER"
-            android:name="orbitlivewallpaper.puzzleduck.com.OrbitalLiveWallpaper">
+            android:name=".OrbitalLiveWallpaper">
             <intent-filter>
                 <action android:name="android.service.wallpaper.WallpaperService" />
             </intent-filter>

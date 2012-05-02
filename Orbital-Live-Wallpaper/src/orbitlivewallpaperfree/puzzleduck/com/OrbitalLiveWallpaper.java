@@ -11,7 +11,7 @@
  *
  */
 
-package orbitlivewallpaper.puzzleduck.com;
+package orbitlivewallpaperfree.puzzleduck.com;
 
 import java.util.Random;
 import android.content.Context;

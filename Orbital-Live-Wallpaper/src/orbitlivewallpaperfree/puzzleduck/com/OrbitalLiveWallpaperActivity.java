@@ -12,7 +12,7 @@
  *
  */
 
-package orbitlivewallpaper.puzzleduck.com;
+package orbitlivewallpaperfree.puzzleduck.com;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -40,10 +40,6 @@ public class OrbitalLiveWallpaperActivity extends Activity implements OnClickLis
 	@Override
 	public void onClick(View v) {
 		
-		
-		
-		
-
         if(v.getId() == R.id.contactDevButton)
         {
           Intent intent = new Intent(Intent.ACTION_SEND);
