@@ -1,6 +1,6 @@
 
  
-package puzzleduck.com;
+package orbitlivewallpaper.puzzleduck.com;
 
 import java.util.Random;
 import android.content.Context;
@@ -228,7 +228,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 			
         	if(orbitType == ORBIT_6_KNOT) 
         	{
-				setCount = 3;
+				setCount = 6;
         		orbitalCount = setCount*trailCount;
                 
 	            for(int i = 0; i < orbitalCount; i++)

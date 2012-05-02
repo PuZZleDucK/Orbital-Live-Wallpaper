@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello">Hello World, OrbitalLiveWallpaperActivity!</string>
+    <string name="main_text">Hello and thanks for using Orbital Live Wallpaper. Please rate and review my apps in the Play Store (or in your own Blog :D), You can support development in three ways: Firstly by purchacing the donate version on the Play Store. Secondly by helping me up my Dropbox capacity by using me as a reference ;). Third and finally you can support development directly by contribuiting code or commentary to the project on GitHub directly. This project is 100% open source and gpl. In any case thanks for supporting PuZZleDucK Industries by installing Orbital Live Wallpaper in the first place.</string>
     <string name="app_name">OrbitalLiveWallpaper</string>
+    <string name="contactDevButtonString">Contact the Developer by email</string>
+    <string name="appButtonString">1. View other PuZZleDucK Industries apps in the Play Store.</string>
+    <string name="dropboxButtonString">2. Join dropbox and refer PuZZleDucK Industries.</string>
+    <string name="githubButtonString">3. Checkout the code on GitHub.</string>
 
 </resources>
