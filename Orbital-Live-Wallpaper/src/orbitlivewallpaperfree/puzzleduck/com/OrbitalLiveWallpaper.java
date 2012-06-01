@@ -166,7 +166,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 			if(!inTransition)
 			{
 				inTransition = true;
-				orbitRadiusDiff = -5;
+				orbitRadiusDiff = 5;// -5;
 			}
             super.onTouchEvent(event);
         }
@@ -208,12 +208,12 @@ public class OrbitalLiveWallpaper extends WallpaperService {
         {
 			dotColor = 0;
 
-			if(orbitRadius == 0)
+			if(orbitRadius == 0 || orbitRadius > 500)
 			{
 				Random rng = new Random();
 				rng.setSeed(SystemClock.elapsedRealtime());
 
-				trailCount =  rng.nextInt(8) +3;
+				trailCount =  rng.nextInt(9) +2;
 				orbitType =  rng.nextInt(orbitNames.length);
 				
 				int speedIndex = rng.nextInt( orbitSpeeds[orbitType].length );
@@ -221,7 +221,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 				
 				now = 0;//removed for continue//replaced for reliability
 				orbitalCompression = 0.125f;
-				orbitRadiusDiff = 5;
+				orbitRadiusDiff = 0-orbitRadiusDiff;//5;
 				
 				currentScheme = rng.nextInt(colorSchemes.length);
 			}// rad = 0;
