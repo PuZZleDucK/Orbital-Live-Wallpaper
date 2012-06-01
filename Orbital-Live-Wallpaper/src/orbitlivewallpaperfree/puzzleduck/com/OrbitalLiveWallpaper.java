@@ -31,8 +31,8 @@ public class OrbitalLiveWallpaper extends WallpaperService {
     private static float mTouchX = -1;
     private static float mTouchY = -1;
 
-    private static float mLastTouchX = 239;//indent initial display
-    private static float mLastTouchY = 239;
+  //  private static float mLastTouchX = 239;//indent initial display
+  //  private static float mLastTouchY = 239;
 
 	public static int ORBIT_6_KNOT = 0;
 	public static int ORBIT_4_KNOT = 1;
@@ -106,8 +106,8 @@ public class OrbitalLiveWallpaper extends WallpaperService {
             Display display = wm.getDefaultDisplay();
             int width = display.getWidth();
             int height = display.getHeight();
-            mLastTouchX =  width/2;
-            mLastTouchY = height/2;
+            mTouchX =  width/2;
+            mTouchY = height/2;
         }
 
         @Override
@@ -158,10 +158,11 @@ public class OrbitalLiveWallpaper extends WallpaperService {
             if (event.getAction() == MotionEvent.ACTION_MOVE) {
                 mTouchX = event.getX();
                 mTouchY = event.getY();
-            } else {
-                mTouchX = -1;
-                mTouchY = -1;
-            }
+            } 
+//			else {
+//                mTouchX = -1;
+//                mTouchY = -1;
+//            }
 			if(!inTransition)
 			{
 				inTransition = true;
@@ -192,11 +193,11 @@ public class OrbitalLiveWallpaper extends WallpaperService {
         
         
         void updateTouchPoint(Canvas c) {
-        	   if (mTouchX >=0 && mTouchY >= 0) {                
-	                //store for next
-	                mLastTouchX = mTouchX;
-	                mLastTouchY = mTouchY;            
-        	   }
+//        	   if (mTouchX >=0 && mTouchY >= 0) {                
+//	                //store for next
+//	                mLastTouchX = mTouchX;
+//	                mLastTouchY = mTouchY;            
+//        	   }
         	   //pre draw canvas clearing.... do not remove (again).
         	   c.drawColor(0xff000000);   
         }
@@ -249,8 +250,8 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 					float offset = now-(i*45);//to split out of function
 					int dotSize = i/setCount;
 					
-	                c.drawCircle( mLastTouchX + (float) ( (2+Math.cos( 3*offset ) * Math.cos(2*offset )) * orbitRadius )-orbitDiameter, 
-								 mLastTouchY + (float) ( (2+Math.cos( 3*offset ) * Math.sin(2*offset )) *orbitRadius)-orbitDiameter, 
+	                c.drawCircle( mTouchX + (float) ( (2+Math.cos( 3*offset ) * Math.cos(2*offset )) * orbitRadius )-orbitDiameter, 
+								 mTouchY + (float) ( (2+Math.cos( 3*offset ) * Math.sin(2*offset )) *orbitRadius)-orbitDiameter, 
 	           		     (1+dotSize)*dotSizeIncrement, mPaint);
 	            }
         	}//ORBIT_6_KNOT
@@ -266,8 +267,8 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 					int dotSize = i/setCount;
 					float offset = now-(i*67.5f);
 	            	
-	                c.drawCircle( mLastTouchX + (float) ( (2+Math.cos( 2*offset ) * Math.cos(offset)) *orbitRadius )-orbitDiameter, 
-								 mLastTouchY + (float) ( (2+Math.cos( 2*offset ) * Math.sin(offset)) *orbitRadius )-orbitDiameter, 
+	                c.drawCircle( mTouchX + (float) ( (2+Math.cos( 2*offset ) * Math.cos(offset)) *orbitRadius )-orbitDiameter, 
+								 mTouchY + (float) ( (2+Math.cos( 2*offset ) * Math.sin(offset)) *orbitRadius )-orbitDiameter, 
 	           		     (1+dotSize)*dotSizeIncrement, mPaint);
 	            }
         	}//ORBIT_4_KNOT
@@ -283,8 +284,8 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 					int dotSize = i/setCount;
 					float offset = now-(i*67.5f);
 					
-	                c.drawCircle( mLastTouchX + (float) ( (Math.sin( offset ) ) *orbitRadius), 
-								 mLastTouchY + (float) ( (Math.cos( offset ) ) *orbitRadius), 
+	                c.drawCircle( mTouchX + (float) ( (Math.sin( offset ) ) *orbitRadius), 
+								 mTouchY + (float) ( (Math.cos( offset ) ) *orbitRadius), 
 								 1+(dotSize*dotSizeIncrement), mPaint);
 	            }
         	}//ORBIT_4_SIMPLE
@@ -301,8 +302,8 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 					int dotSize = i/setCount;
 					float offset = now-(i*90f);
 					
-	                c.drawCircle( mLastTouchX + (float) ( (Math.sin( offset ) ) *orbitRadius), 
-								 mLastTouchY + (float) ( (Math.cos( offset ) ) *orbitRadius), 
+	                c.drawCircle( mTouchX + (float) ( (Math.sin( offset ) ) *orbitRadius), 
+								 mTouchY + (float) ( (Math.cos( offset ) ) *orbitRadius), 
 								 1+(dotSize*dotSizeIncrement), mPaint);
 	            }
 			}//simple3
@@ -318,8 +319,8 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 					int dotSize = i/setCount;
 					float offset = now-(i*5f);
 					
-	                c.drawCircle( mLastTouchX + (float) ( (Math.sin( offset ) ) *orbitRadius), 
-								 mLastTouchY + (float) ( (Math.cos( offset ) ) *orbitRadius), 
+	                c.drawCircle( mTouchX + (float) ( (Math.sin( offset ) ) *orbitRadius), 
+								 mTouchY + (float) ( (Math.cos( offset ) ) *orbitRadius), 
 								 (1+dotSize)*dotSizeIncrement, mPaint);
 	            }
 			}//5 simple
@@ -340,8 +341,8 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 					dotColor = (dotColor + 1)%setCount;
 					float offset = now + (i * Math.abs(orbitalCompression)) ;  //+ (5) add rotation offset
 					
-					c.drawCircle( mLastTouchX + (float) ( (Math.sin( offset+179f) ) *orbitRadius), 
-								 mLastTouchY + (float) ( (Math.cos( offset+179f) ) *orbitRadius), 
+					c.drawCircle( mTouchX + (float) ( (Math.sin( offset+179f) ) *orbitRadius), 
+								 mTouchY + (float) ( (Math.cos( offset+179f) ) *orbitRadius), 
 								 5, mPaint);
 	            } 
 			}//windows late
