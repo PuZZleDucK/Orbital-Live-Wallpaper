@@ -25,6 +25,7 @@ import android.view.Display;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.WindowManager;
+import android.graphics.*;
 
 public class OrbitalLiveWallpaper extends WallpaperService {
 
@@ -44,9 +45,18 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	private float[][] orbitSpeeds = { {0.01f,0.03f,0.05f,0.07f,0.1f}, {0.01f,0.03f,0.05f,0.1f,0.2f,0.3f,0.5f}, {0.05f,0.1f,0.2f,0.3f,0.5f,0.7f,1.0f,1.5f,1.7f}, {0.05f,0.1f,0.2f,0.3f,0.5f,0.7f,1.0f,1.5f,1.9f}, {0.05f,0.1f,0.2f,0.3f,0.5f,0.7f,1.0f,1.5f}, {0.01f,0.03f,0.05f,0.1f,0.2f,0.3f,0.5f} };
 	public static int orbitType = orbitNames.length - 1;  
 	
+	public static int TRANSITION_SPIN_IN = 0;
+	public static int TRANSITION_SPIN_OUT = 1;
+	public static int TRANSITION_HALT_AT_12 = 2;
+	public static int TRANSITION_HALT_AT_CLOSEST = 3;
+	public static String[] transitionNames = {"Spin in","Spin out","Halt at 12","Halt wherever"};
+	public static int CurrentTransition = -1;
 
 	public static int orbitRadius = 100;
 	public static int orbitDiameter = orbitRadius * 2;
+	
+	public static int width = -1;
+	public static int height = -1;
     
     @Override
     public Engine onCreateEngine() {
@@ -102,13 +112,20 @@ public class OrbitalLiveWallpaper extends WallpaperService {
             super.onCreate(surfaceHolder);
             setTouchEventsEnabled(true);
            
+		   setWindowProperties();
+        }
+
+		private void setWindowProperties()
+		{
+			// 
+
             WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
             Display display = wm.getDefaultDisplay();
-            int width = display.getWidth();
-            int height = display.getHeight();
+            width = display.getWidth();
+            height = display.getHeight();
             mTouchX =  width/2;
             mTouchY = height/2;
-        }
+		}
 
         @Override
         public void onDestroy() {
@@ -120,6 +137,8 @@ public class OrbitalLiveWallpaper extends WallpaperService {
         public void onVisibilityChanged(boolean visible) {
             mVisible = visible;
             if (visible) {
+
+			//	setWindowProperties();
                 drawFrame();
             } else {
                 mHandler.removeCallbacks(mDrawCube);
@@ -129,12 +148,18 @@ public class OrbitalLiveWallpaper extends WallpaperService {
         @Override
         public void onSurfaceChanged(SurfaceHolder holder, int format, int width, int height) {
             super.onSurfaceChanged(holder, format, width, height);
+		//	setWindowProperties();
             drawFrame();
+			
+			
         }
 
         @Override
         public void onSurfaceCreated(SurfaceHolder holder) {
             super.onSurfaceCreated(holder);
+
+		//	setWindowProperties();
+			
         }
 
         @Override
@@ -147,6 +172,17 @@ public class OrbitalLiveWallpaper extends WallpaperService {
         @Override
         public void onOffsetsChanged(float xOffset, float yOffset,
                 float xStep, float yStep, int xPixels, int yPixels) {
+					
+		 //  setWindowProperties();
+		 // check for layout change First
+		 Rect surfaceRect = this.getSurfaceHolder().getSurfaceFrame();
+		 
+	//	 float temp = mTouchX;
+	//	 mTouchX = mTouchY;
+	//	 mTouchY = temp;
+		 // actually rotates ok
+		 
+		 
             drawFrame();
         }
 
