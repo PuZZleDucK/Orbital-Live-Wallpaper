@@ -26,6 +26,7 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.WindowManager;
 import android.graphics.*;
+import android.util.*;
 
 public class OrbitalLiveWallpaper extends WallpaperService {
 
@@ -45,12 +46,13 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	private float[][] orbitSpeeds = { {0.01f,0.03f,0.05f,0.07f,0.1f}, {0.01f,0.03f,0.05f,0.1f,0.2f,0.3f,0.5f}, {0.05f,0.1f,0.2f,0.3f,0.5f,0.7f,1.0f,1.5f,1.7f}, {0.05f,0.1f,0.2f,0.3f,0.5f,0.7f,1.0f,1.5f,1.9f}, {0.05f,0.1f,0.2f,0.3f,0.5f,0.7f,1.0f,1.5f}, {0.01f,0.03f,0.05f,0.1f,0.2f,0.3f,0.5f} };
 	public static int orbitType = orbitNames.length - 1;  
 	
+	public static int TRANSITION_NO_TRANSITION = -1;
 	public static int TRANSITION_SPIN_IN = 0;
 	public static int TRANSITION_SPIN_OUT = 1;
 	public static int TRANSITION_HALT_AT_12 = 2;
 	public static int TRANSITION_HALT_AT_CLOSEST = 3;
 	public static String[] transitionNames = {"Spin in","Spin out","Halt at 12","Halt wherever"};
-	public static int CurrentTransition = -1;
+	public static int CurrentTransition = TRANSITION_NO_TRANSITION;
 
 	public static int orbitRadius = 100;
 	public static int orbitDiameter = orbitRadius * 2;
@@ -89,7 +91,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 			{ Color.argb(255,101,16,89), Color.argb(255,255,99,9), Color.argb(255,201,0,22), Color.argb(255,101,16,89), Color.argb(255,255,99,9), Color.argb(255,201,0,22) }//Ubuntu purple
 		};
 //		private String[] colorSchemeNames = {"White","XDA","Cyanogen","FireFox","Apache","/.","Ubuntu1","Ubuntu2"};
-		private boolean inTransition = false;
+	//	private boolean inTransition = false;
 		private int orbitRadiusDiff = - 5;//start ready to compress
 		private float orbitSpeed = 0.1f;//start average screen
 
@@ -99,6 +101,11 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 		
 		private int trailCount = 6;
 		private int setCount = 3;
+		
+		private int defaultRadius = 100;
+		
+		private Random rng = new Random();
+		
         
         TargetEngine() {
             mPaint.setAntiAlias(true);
@@ -112,7 +119,9 @@ public class OrbitalLiveWallpaper extends WallpaperService {
             super.onCreate(surfaceHolder);
             setTouchEventsEnabled(true);
            
-		   setWindowProperties();
+		    setWindowProperties();
+			rng.setSeed(SystemClock.elapsedRealtime());
+
         }
 
 		private void setWindowProperties()
@@ -199,11 +208,25 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 //                mTouchX = -1;
 //                mTouchY = -1;
 //            }
-			if(!inTransition)
+		//	if(!inTransition)
+			if(	CurrentTransition == TRANSITION_NO_TRANSITION )
 			{
-				inTransition = true;
-				orbitRadiusDiff = 5;// -5;
+				Log.d("orbital","new random");
+				//inTransition = true;
+				CurrentTransition = rng.nextInt(transitionNames.length);
 			}
+			// switch over transition type
+			if(CurrentTransition == TRANSITION_SPIN_OUT)
+			{
+				orbitRadiusDiff = 15;// -5;
+			}
+
+			if(CurrentTransition == TRANSITION_SPIN_IN)
+			{
+				orbitRadiusDiff = -5;// -5;
+			}
+			
+			
             super.onTouchEvent(event);
         }
 
@@ -246,8 +269,8 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 
 			if(orbitRadius == 0 || orbitRadius > 500)
 			{
-				Random rng = new Random();
-				rng.setSeed(SystemClock.elapsedRealtime());
+			//	Random rng = new Random();
+			//	rng.setSeed(SystemClock.elapsedRealtime());
 
 				trailCount =  rng.nextInt(9) +2;
 				orbitType =  rng.nextInt(orbitNames.length);
@@ -257,20 +280,27 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 				
 				now = 0;//removed for continue//replaced for reliability
 				orbitalCompression = 0.125f;
-				orbitRadiusDiff = 0-orbitRadiusDiff;//5;
+				
+				if(CurrentTransition == TRANSITION_SPIN_IN || CurrentTransition == TRANSITION_SPIN_OUT )
+				{
+					orbitRadiusDiff = 0-orbitRadiusDiff;//5 or 15;
+				}
 				
 				currentScheme = rng.nextInt(colorSchemes.length);
 			}// rad = 0;
 			
-			if(inTransition)
+		//	if(inTransition)
+			if(CurrentTransition == TRANSITION_SPIN_IN || CurrentTransition == TRANSITION_SPIN_OUT )
 			{
 				orbitRadius += orbitRadiusDiff;
 				orbitDiameter = orbitRadius*2;
 			}
+			
 
-			if(orbitRadius == 100 && inTransition)
+			if(orbitRadius == 100)// && (CurrentTransition == TRANSITION_SPIN_OUT || CurrentTransition == TRANSITION_SPIN_IN ))//inTransition)
 			{
-				inTransition = false;
+				//inTransition = false;
+				CurrentTransition = TRANSITION_NO_TRANSITION;
 
 			}
 			
