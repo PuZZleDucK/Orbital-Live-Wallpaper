@@ -52,7 +52,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	public static int TRANSITION_HALT_AT_12 = 2;
 	public static int TRANSITION_HALT_AT_CLOSEST = 3;
 	public static String[] transitionNames = {"Spin in","Spin out","Halt at 12","Halt wherever"};
-	public static int CurrentTransition = TRANSITION_NO_TRANSITION;
+	public static int currentTransition = TRANSITION_NO_TRANSITION;
 
 	public static int orbitRadius = 100;
 	public static int orbitDiameter = orbitRadius * 2;
@@ -103,6 +103,9 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 		private int setCount = 3;
 		
 		private int defaultRadius = 100;
+		private int offScreenRadius = 1200;
+		private int expandSpeed = 20;
+		private int contractSpeed = 7;
 		
 		private Random rng = new Random();
 		
@@ -134,6 +137,9 @@ public class OrbitalLiveWallpaper extends WallpaperService {
             height = display.getHeight();
             mTouchX =  width/2;
             mTouchY = height/2;
+			offScreenRadius = Math.max(width, height);
+			//should also make default radius relative to Max extremity
+			
 		}
 
         @Override
@@ -209,21 +215,21 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 //                mTouchY = -1;
 //            }
 		//	if(!inTransition)
-			if(	CurrentTransition == TRANSITION_NO_TRANSITION )
+			if(	currentTransition == TRANSITION_NO_TRANSITION )
 			{
-				Log.d("orbital","new random");
+			//	Log.d("orbital","new random");
 				//inTransition = true;
-				CurrentTransition = rng.nextInt(transitionNames.length);
+				currentTransition = rng.nextInt(transitionNames.length);
 			}
 			// switch over transition type
-			if(CurrentTransition == TRANSITION_SPIN_OUT)
+			if(currentTransition == TRANSITION_SPIN_OUT)
 			{
-				orbitRadiusDiff = 15;// -5;
+				orbitRadiusDiff = expandSpeed;// -5;
 			}
 
-			if(CurrentTransition == TRANSITION_SPIN_IN)
+			if(currentTransition == TRANSITION_SPIN_IN)
 			{
-				orbitRadiusDiff = -5;// -5;
+				orbitRadiusDiff = -contractSpeed;// -5;
 			}
 			
 			
@@ -267,12 +273,15 @@ public class OrbitalLiveWallpaper extends WallpaperService {
         {
 			dotColor = 0;
 
-			if(orbitRadius == 0 || orbitRadius > 500)
+			if(orbitRadius == 0 || orbitRadius > offScreenRadius)
 			{
+				//half way animating/transitioning... now setup new orbitals
 			//	Random rng = new Random();
 			//	rng.setSeed(SystemClock.elapsedRealtime());
 
-				trailCount =  rng.nextInt(9) +2;
+				trailCount =  rng.nextInt(7) +2;
+				
+			//	restrict next type by animation
 				orbitType =  rng.nextInt(orbitNames.length);
 				
 				int speedIndex = rng.nextInt( orbitSpeeds[orbitType].length );
@@ -281,7 +290,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 				now = 0;//removed for continue//replaced for reliability
 				orbitalCompression = 0.125f;
 				
-				if(CurrentTransition == TRANSITION_SPIN_IN || CurrentTransition == TRANSITION_SPIN_OUT )
+				if(currentTransition == TRANSITION_SPIN_IN || currentTransition == TRANSITION_SPIN_OUT )
 				{
 					orbitRadiusDiff = 0-orbitRadiusDiff;//5 or 15;
 				}
@@ -290,18 +299,24 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 			}// rad = 0;
 			
 		//	if(inTransition)
-			if(CurrentTransition == TRANSITION_SPIN_IN || CurrentTransition == TRANSITION_SPIN_OUT )
+			if(currentTransition == TRANSITION_SPIN_IN || currentTransition == TRANSITION_SPIN_OUT )
 			{
 				orbitRadius += orbitRadiusDiff;
 				orbitDiameter = orbitRadius*2;
 			}
 			
 
-			if(orbitRadius == 100)// && (CurrentTransition == TRANSITION_SPIN_OUT || CurrentTransition == TRANSITION_SPIN_IN ))//inTransition)
+			if( (orbitRadius <= defaultRadius) && (currentTransition == TRANSITION_SPIN_IN) ) //inTransition)
 			{
 				//inTransition = false;
-				CurrentTransition = TRANSITION_NO_TRANSITION;
-
+				currentTransition = TRANSITION_NO_TRANSITION;
+				orbitRadius = defaultRadius;
+			}
+			
+			if( (orbitRadius >= defaultRadius) && (currentTransition == TRANSITION_SPIN_OUT) )
+			{
+				currentTransition = TRANSITION_NO_TRANSITION;
+				orbitRadius = defaultRadius;
 			}
 			
         	if(orbitType == ORBIT_6_KNOT) 
