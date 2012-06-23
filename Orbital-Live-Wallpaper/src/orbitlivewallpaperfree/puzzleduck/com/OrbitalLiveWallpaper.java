@@ -30,6 +30,8 @@ import android.util.*;
 
 public class OrbitalLiveWallpaper extends WallpaperService {
 
+    private static final boolean DEBUG = true;
+ 
     private static float mTouchX = -1;
     private static float mTouchY = -1;
 
@@ -51,7 +53,8 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	public static int TRANSITION_SPIN_OUT = 1;
 	public static int TRANSITION_HALT_AT_12 = 2;
 	public static int TRANSITION_HALT_AT_CLOSEST = 3;
-	public static String[] transitionNames = {"Spin in","Spin out","Halt at 12","Halt wherever"};
+	public static String[] transitionNames = {"no transition","Spin in","Spin out","Halt at 12","Halt wherever"};
+	public static int transitionCount = transitionNames.length-1;
 	public static int currentTransition = TRANSITION_NO_TRANSITION;
 
 	public static int orbitRadius = 100;
@@ -219,9 +222,10 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 			{
 			//	Log.d("orbital","new random");
 				//inTransition = true;
-				currentTransition = rng.nextInt(transitionNames.length);
+				currentTransition = rng.nextInt(transitionCount);
+				orbitRadius = defaultRadius;
 			}
-			// switch over transition type
+			// set defaults transition type
 			if(currentTransition == TRANSITION_SPIN_OUT)
 			{
 				orbitRadiusDiff = expandSpeed;// -5;
@@ -271,6 +275,21 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 
         void drawOrbital(Canvas c) 
         {
+			if(DEBUG)
+			{
+				mPaint.setTextSize(24);
+				mPaint.setColor(Color.WHITE);
+				c.drawText("debug now; " + now, 30,height-430,mPaint);
+				c.drawText("      Trans: " + transitionNames[currentTransition+1], 30,height-400,mPaint);
+				
+				c.drawText("      Radius : " + orbitRadius, 30,height-380,mPaint);
+				c.drawText("      Default: " + defaultRadius, 30,height-360,mPaint);
+				
+				c.drawText("      a.o > d: " + (Math.abs(orbitRadius) > defaultRadius), 30,height-330,mPaint);
+				c.drawText("      a.o < d: " + (Math.abs(orbitRadius) < defaultRadius) , 30,height-300,mPaint);
+			}
+			
+			
 			dotColor = 0;
 
 			if(orbitRadius == 0 || orbitRadius > offScreenRadius)
@@ -290,10 +309,16 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 				now = 0;//removed for continue//replaced for reliability
 				orbitalCompression = 0.125f;
 				
-				if(currentTransition == TRANSITION_SPIN_IN || currentTransition == TRANSITION_SPIN_OUT )
+				if(currentTransition == TRANSITION_SPIN_IN)
 				{
-					orbitRadiusDiff = 0-orbitRadiusDiff;//5 or 15;
+					orbitRadiusDiff = contractSpeed;//5 or 15;
 				}
+				
+				if(currentTransition == TRANSITION_SPIN_OUT)
+				{
+					orbitRadiusDiff = -expandSpeed;
+				}
+				
 				
 				currentScheme = rng.nextInt(colorSchemes.length);
 			}// rad = 0;
@@ -306,17 +331,25 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 			}
 			
 
-			if( (orbitRadius <= defaultRadius) && (currentTransition == TRANSITION_SPIN_IN) ) //inTransition)
+			if( (Math.abs(orbitRadius) > defaultRadius) && (currentTransition == TRANSITION_SPIN_IN) ) //inTransition)
 			{
 				//inTransition = false;
 				currentTransition = TRANSITION_NO_TRANSITION;
-				orbitRadius = defaultRadius;
+				//orbitRadius = defaultRadius;
 			}
-			
-			if( (orbitRadius >= defaultRadius) && (currentTransition == TRANSITION_SPIN_OUT) )
+
+			if( (Math.abs(orbitRadius) < defaultRadius) && (currentTransition == TRANSITION_SPIN_OUT) )
 			{
 				currentTransition = TRANSITION_NO_TRANSITION;
-				orbitRadius = defaultRadius;
+				//orbitRadius = defaultRadius;
+			}
+			
+			//reset other transitions irregularity
+			if(currentTransition == TRANSITION_HALT_AT_12 || currentTransition == TRANSITION_HALT_AT_CLOSEST)
+			{
+
+				currentTransition = TRANSITION_NO_TRANSITION;
+				//orbitRadius = defaultRadius;
 			}
 			
         	if(orbitType == ORBIT_6_KNOT) 
