@@ -193,7 +193,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 					
 		 //  setWindowProperties();
 		 // check for layout change First
-		 Rect surfaceRect = this.getSurfaceHolder().getSurfaceFrame();
+		// Rect surfaceRect = this.getSurfaceHolder().getSurfaceFrame();
 		 
 	//	 float temp = mTouchX;
 	//	 mTouchX = mTouchY;
@@ -213,15 +213,10 @@ public class OrbitalLiveWallpaper extends WallpaperService {
                 mTouchX = event.getX();
                 mTouchY = event.getY();
             } 
-//			else {
-//                mTouchX = -1;
-//                mTouchY = -1;
-//            }
-		//	if(!inTransition)
+	
 			if(	currentTransition == TRANSITION_NO_TRANSITION )
 			{
 			//	Log.d("orbital","new random");
-				//inTransition = true;
 				currentTransition = rng.nextInt(transitionCount);
 				orbitRadius = defaultRadius;
 			}
@@ -262,11 +257,6 @@ public class OrbitalLiveWallpaper extends WallpaperService {
         
         
         void updateTouchPoint(Canvas c) {
-//        	   if (mTouchX >=0 && mTouchY >= 0) {                
-//	                //store for next
-//	                mLastTouchX = mTouchX;
-//	                mLastTouchY = mTouchY;            
-//        	   }
         	   //pre draw canvas clearing.... do not remove (again).
         	   c.drawColor(0xff000000);   
         }
