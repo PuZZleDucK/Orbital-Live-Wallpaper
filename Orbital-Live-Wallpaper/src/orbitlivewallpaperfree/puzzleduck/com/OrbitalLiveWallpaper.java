@@ -277,6 +277,8 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 				
 				c.drawText("      a.o > d: " + (Math.abs(orbitRadius) > defaultRadius), 30,height-330,mPaint);
 				c.drawText("      a.o < d: " + (Math.abs(orbitRadius) < defaultRadius) , 30,height-300,mPaint);
+			//	mPaint.setARGB(255,255,0,0);
+			//	c.drawLine(mTouchX,mTouchY,0,0,mPaint);
 			}
 			
 			
