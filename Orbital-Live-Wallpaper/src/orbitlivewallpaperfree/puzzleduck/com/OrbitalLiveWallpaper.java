@@ -45,7 +45,12 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	public static int ORBIT_5_SIMPLE = 4;
 	public static int ORBIT_8 = 5;
 	public static String[] orbitNames = {"6 knot","4 knot","4 simple","3 simple","5 simple","Windows8"};
-	private float[][] orbitSpeeds = { {0.01f,0.03f,0.05f,0.07f,0.1f}, {0.01f,0.03f,0.05f,0.1f,0.2f,0.3f,0.5f}, {0.05f,0.1f,0.2f,0.3f,0.5f,0.7f,1.0f,1.5f,1.7f}, {0.05f,0.1f,0.2f,0.3f,0.5f,0.7f,1.0f,1.5f,1.9f}, {0.05f,0.1f,0.2f,0.3f,0.5f,0.7f,1.0f,1.5f}, {0.01f,0.03f,0.05f,0.1f,0.2f,0.3f,0.5f} };
+	private float[][] orbitSpeeds = { {0.01f,0.03f,0.05f,0.07f,0.1f},//6knot
+								 	  {0.01f,0.03f,0.05f,0.1f,0.2f,0.3f,0.5f}, //4knot
+									  {0.05f,0.1f,0.2f,0.3f,0.5f,0.7f,1.0f},//4simple 
+									  {0.05f,0.1f,0.2f,0.3f,0.5f,0.7f,1.0f}, //3simple
+									  {0.05f,0.1f,0.2f,0.3f,0.5f,0.7f,1.0f}, //5simple
+									  {0.01f,0.03f,0.05f,0.1f,0.2f,0.3f,0.5f} };//win8
 	public static int orbitType = orbitNames.length - 1;  
 	
 	public static int TRANSITION_NO_TRANSITION = -1;
@@ -277,6 +282,12 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 				
 				c.drawText("      a.o > d: " + (Math.abs(orbitRadius) > defaultRadius), 30,height-330,mPaint);
 				c.drawText("      a.o < d: " + (Math.abs(orbitRadius) < defaultRadius) , 30,height-300,mPaint);
+				
+
+				c.drawText("      orbit: " + orbitNames[orbitType] , 30,height-270,mPaint);
+				c.drawText("      speed: " +  orbitSpeed, 30,height-240,mPaint);
+				c.drawText("      count: " +  setCount, 30,height-210,mPaint);
+				
 				mPaint.setARGB(255,255,0,0);
 				c.drawLine(mTouchX,mTouchY,mTouchX+(300f*(float)Math.sin(now)),mTouchY+(300f*(float)Math.cos(now)),mPaint);
 			}
