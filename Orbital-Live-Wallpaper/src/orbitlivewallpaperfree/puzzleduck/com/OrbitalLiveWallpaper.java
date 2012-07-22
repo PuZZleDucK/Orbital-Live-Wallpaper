@@ -45,18 +45,18 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	public static int ORBIT_5_SIMPLE = 4;
 	public static int ORBIT_8 = 5;
 	public static String[] orbitNames = {"6 knot","4 knot","4 simple","3 simple","5 simple","Windows8"};
-	private float[][] orbitSpeeds = { {-0.01f,0.01f,0.03f,0.05f,0.07f,0.1f},//6knot
-		{-0.01f,0.01f,0.03f,0.05f,0.1f,0.2f,0.3f}, //4knot
+	private float[][] orbitSpeeds = { {-0.01f,0.01f,0.03f,0.05f,0.07f},//6knot
+		{-0.01f,0.01f,0.03f,0.05f,0.1f,0.2f}, //4knot
 		{-0.01f,0.05f,0.1f,0.2f,0.3f,0.5f},//4simple 
-		{-0.01f,0.05f,0.1f,0.2f,0.3f,0.5f,0.7f,1.0f}, //3simple
-		{-0.01f,0.05f,0.1f,0.2f,0.3f,0.5f,0.7f,1.0f}, //5simple
+		{-0.01f,0.05f,0.1f,0.2f,0.3f,0.5f,0.7f}, //3simple
+		{-0.01f,0.05f,0.1f,0.2f,0.3f,0.5f,0.7f}, //5simple
 		{-0.2f,-0.1f,-0.05f,0.03f,0.05f,0.1f,0.2f,0.3f,0.5f} };//win8
 	public int[][] orbitalCounts = { {2,3,4,5},//6
 		{2,3,4},//4
 		{2,3,4},//4s
 		{2,3,4,5,6},//3s
 		{2,3,4},//5
-		{5,6}};//8
+		{2,3,4,5,6,7,8}};//8
 	public static int orbitType = orbitNames.length - 1;  
 	
 	public static int TRANSITION_NO_TRANSITION = -1;
@@ -305,7 +305,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 			
 			dotColor = 0;
 
-			if(orbitRadius == 0 || orbitRadius > offScreenRadius)
+			if(orbitRadius <= 0 || orbitRadius > offScreenRadius)
 			{
 				//half way animating/transitioning... now setup new orbitals
 			//	Random rng = new Random();
