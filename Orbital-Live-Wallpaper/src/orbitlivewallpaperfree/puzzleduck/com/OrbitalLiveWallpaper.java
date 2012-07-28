@@ -48,7 +48,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	private float[][] orbitSpeeds = { {-0.01f,0.01f,0.03f,0.05f,0.07f},//6knot
 		{-0.01f,0.01f,0.03f,0.05f,0.1f,0.2f}, //4knot
 		{-0.01f,0.05f,0.1f,0.2f,0.3f,0.5f},//4simple 
-		{-0.01f,0.05f,0.1f,0.2f,0.3f,0.5f,0.7f}, //3simple
+		{-0.01f,0.05f,0.1f,0.2f,0.3f}, //3simple
 		{-0.01f,0.05f,0.1f,0.2f,0.3f,0.5f}, //5simple
 		{-0.2f,-0.1f,-0.05f,0.03f,0.05f,0.1f,0.2f} };//win8
 	public int[][] orbitalCounts = { {2,3,4,5},//6
@@ -309,7 +309,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 				c.drawText("      offset 1: " +  offset, 30,height-180,mPaint);
 				
 				mPaint.setARGB(255,255,0,0);
-				c.drawLine(mTouchX,mTouchY,mTouchX+(300f*(float)Math.sin(now+offset)),mTouchY+(300f*(float)Math.cos(now+ offset)),mPaint);
+				c.drawLine(mTouchX,mTouchY,mTouchX+(300f*(float)Math.sin(offset)),mTouchY+(300f*(float)Math.cos(offset)),mPaint);
 				c.drawLine(mTouchX,mTouchY,mTouchX+(300f*(float)Math.sin(now)),mTouchY+(300f*(float)Math.cos(now)),mPaint);
 				
 			}
@@ -329,7 +329,8 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 				
 				now = 0;//removed for continue//replaced for reliability
 				orbitalCompression = 0.125f;
-				
+			
+	//		stupid spot for this... must move one Sat
 				if(currentTransition == TRANSITION_SPIN_IN)
 				{
 					orbitRadiusDiff = contractSpeed;//5 or 15;
