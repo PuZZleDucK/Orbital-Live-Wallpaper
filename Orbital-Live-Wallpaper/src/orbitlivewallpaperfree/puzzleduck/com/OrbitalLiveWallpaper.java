@@ -261,7 +261,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	
 			if(	currentTransitionAway == TRANSITION_NO_TRANSITION )
 			{
-				triggerNewTransitions();
+				triggerNewTransitionAway();
 			}
 			// set defaults transition type
 //			if(currentTransitionAway == TRANSITION_SPIN_OUT)
@@ -288,27 +288,46 @@ public class OrbitalLiveWallpaper extends WallpaperService {
             super.onTouchEvent(event);
         }
 
-		private void triggerNewTransitions()
+		private void triggerNewTransitionAway()
 		{
 			// TODOne: Implement this method
 
 			//	Log.d("orbital","new random");
-			currentTransitionBack = rng.nextInt(transitionCount);
-			currentTransitionAway = rng.nextInt(transitionCount);
+		//	currentTransitionBack = TRANSITION_SPIN_IN; // rng.nextInt(transitionCount);
+			currentTransitionAway = TRANSITION_SPIN_IN; // rng.nextInt(transitionCount);
 			orbitRadius = defaultRadius;
 			
+//			if(currentTransitionBack == TRANSITION_SPIN_IN)
+//			{
+//				orbitRadius = offScreenRadius;
+//			}
+//
+//			if(currentTransitionBack == TRANSITION_SPIN_OUT)
+//			{
+//				orbitRadius = 0;
+//			}
+			
+		}
+
+		
+		private void triggerNewTransitionBack()
+		{
+			// TODOne: Implement this method
+
+			currentTransitionAway = TRANSITION_NO_TRANSITION;
+			//	Log.d("orbital","new random");
+			currentTransitionBack = TRANSITION_SPIN_IN; // rng.nextInt(transitionCount);
+		//	currentTransitionAway = TRANSITION_SPIN_IN; // rng.nextInt(transitionCount);
+		//	orbitRadius = defaultRadius;
+		// set transition prerequisites
 			if(currentTransitionBack == TRANSITION_SPIN_IN)
 			{
 				orbitRadius = offScreenRadius;
 			}
-
-			if(currentTransitionBack == TRANSITION_SPIN_OUT)
-			{
-				orbitRadius = 0;
-			}
 			
 		}
-
+		
+		
         void drawFrame() {
             final SurfaceHolder holder = getSurfaceHolder();
 
@@ -368,41 +387,69 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 			
 			dotColor = 0;
 
-			if(orbitRadius <= 0 || orbitRadius > offScreenRadius)
+			if(orbitRadius <= 0 && currentTransitionAway == TRANSITION_SPIN_IN)
 			{
 			//	restrict next type by animation
 				offscreenSetNewOrbit();
 			
 			}// rad = 0 or off;
 			
+			if(orbitRadius > offScreenRadius && currentTransitionAway == TRANSITION_SPIN_OUT)
+			{
+			//	restrict next type by animation
+				offscreenSetNewOrbit();
+			
+			}// rad = 0 or off;
+			
+			
 		//	if(inTransition)
-			if(currentTransitionAway == TRANSITION_SPIN_IN || currentTransitionAway == TRANSITION_SPIN_OUT )
+			if(currentTransitionAway == TRANSITION_SPIN_OUT )
 			{
 			//	orbitRadius += orbitRadiusDiff;
 				orbitRadius += expandSpeed;
 				orbitDiameter = orbitRadius*2;
 			}
 
-			if(currentTransitionBack == TRANSITION_SPIN_IN || currentTransitionBack == TRANSITION_SPIN_OUT )
+			if(currentTransitionAway == TRANSITION_SPIN_IN )
+			{
+				//	orbitRadius += orbitRadiusDiff;
+				orbitRadius += contractSpeed;
+				orbitDiameter = orbitRadius*2;
+			}
+			
+			
+
+			if(currentTransitionBack == TRANSITION_SPIN_OUT )
+			{
+				orbitRadius += expandSpeed ;
+				orbitDiameter = orbitRadius*2;
+			}
+
+			if(currentTransitionBack == TRANSITION_SPIN_IN )
 			{
 				orbitRadius += contractSpeed ;
 				orbitDiameter = orbitRadius*2;
 			}
 			
 
-			if( (Math.abs(orbitRadius) > defaultRadius) && (currentTransitionBack == TRANSITION_SPIN_IN) ) //inTransition)
+			
+			
+			if( (Math.abs(orbitRadius) > offScreenRadius) && (currentTransitionAway == TRANSITION_SPIN_OUT) ) //inTransition)
 			{
 				//inTransition = false;
-				currentTransitionAway = TRANSITION_NO_TRANSITION;
-				currentTransitionBack = TRANSITION_NO_TRANSITION;
+			//	currentTransitionBack = TRANSITION_NO_TRANSITION;
 				//orbitRadius = defaultRadius;
+				//currentTransitionBack = 
+				triggerNewTransitionBack();
 			}
 
-			if( (Math.abs(orbitRadius) < defaultRadius) && (currentTransitionBack == TRANSITION_SPIN_OUT) )
+			if( (Math.abs(orbitRadius) < 1) && (currentTransitionAway == TRANSITION_SPIN_IN) )
 			{
-				currentTransitionAway = TRANSITION_NO_TRANSITION;
-				currentTransitionBack = TRANSITION_NO_TRANSITION;
+			//	currentTransitionAway = TRANSITION_NO_TRANSITION; // TRANSITION_SPIN_IN;//replace with random
+			//	currentTransitionBack = TRANSITION_NO_TRANSITION;
 				//orbitRadius = defaultRadius;
+				
+				triggerNewTransitionBack();
 			}
 			
 			//reset other transitions irregularity
