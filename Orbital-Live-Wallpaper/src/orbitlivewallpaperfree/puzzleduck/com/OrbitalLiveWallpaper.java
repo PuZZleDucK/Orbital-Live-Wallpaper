@@ -30,9 +30,10 @@ import android.util.*;
 
 public class OrbitalLiveWallpaper extends WallpaperService {
 
-    private static final boolean DEBUG = true;
+    private static final boolean DEBUG = false;
  
     private static float mTouchX = -1;
+	
     private static float mTouchY = -1;
 
   //  private static float mLastTouchX = 239;//indent initial display
@@ -146,8 +147,10 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 		
 		private int defaultRadius = 100;
 		private int offScreenRadius = 1200;
-		private int expandSpeed = 20;
-		private int contractSpeed = -17;
+//		private int expandSpeed = 20;
+//		private int contractSpeed = -17;
+		private int fastSpeed = 20;
+		private int slowSpeed = 7;
 		
 		int speedIndex = 0;
 		
@@ -294,7 +297,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 
 			//	Log.d("orbital","new random");
 		//	currentTransitionBack = TRANSITION_SPIN_IN; // rng.nextInt(transitionCount);
-			currentTransitionAway = TRANSITION_SPIN_IN; // rng.nextInt(transitionCount);
+			currentTransitionAway = rng.nextInt(2); // rng.nextInt(transitionCount);
 			orbitRadius = defaultRadius;
 			
 //			if(currentTransitionBack == TRANSITION_SPIN_IN)
@@ -318,13 +321,18 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 			
 			currentTransitionAway = TRANSITION_NO_TRANSITION;
 			//	Log.d("orbital","new random");
-			currentTransitionBack = TRANSITION_SPIN_IN; // rng.nextInt(transitionCount);
+			currentTransitionBack = rng.nextInt(2); // rng.nextInt(transitionCount);
 		//	currentTransitionAway = TRANSITION_SPIN_IN; // rng.nextInt(transitionCount);
 		//	orbitRadius = defaultRadius;
 		// set transition prerequisites
 			if(currentTransitionBack == TRANSITION_SPIN_IN)
 			{
 				orbitRadius = offScreenRadius;
+			}
+
+			if(currentTransitionBack == TRANSITION_SPIN_OUT)
+			{
+				orbitRadius = 0;
 			}
 			
 		}
@@ -409,14 +417,14 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 			if(currentTransitionAway == TRANSITION_SPIN_OUT )
 			{
 			//	orbitRadius += orbitRadiusDiff;
-				orbitRadius += expandSpeed;
+				orbitRadius += fastSpeed;
 				orbitDiameter = orbitRadius*2;
 			}
 
 			if(currentTransitionAway == TRANSITION_SPIN_IN )
 			{
 				//	orbitRadius += orbitRadiusDiff;
-				orbitRadius += contractSpeed;
+				orbitRadius -= slowSpeed;
 				orbitDiameter = orbitRadius*2;
 			}
 			
@@ -424,13 +432,13 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 
 			if(currentTransitionBack == TRANSITION_SPIN_OUT )
 			{
-				orbitRadius += expandSpeed ;
+				orbitRadius += slowSpeed ;
 				orbitDiameter = orbitRadius*2;
 			}
 
 			if(currentTransitionBack == TRANSITION_SPIN_IN )
 			{
-				orbitRadius += contractSpeed ;
+				orbitRadius -= fastSpeed ;
 				orbitDiameter = orbitRadius*2;
 			}
 			
