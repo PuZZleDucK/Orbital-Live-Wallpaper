@@ -33,11 +33,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
     private static final boolean DEBUG = false;
  
     private static float mTouchX = -1;
-	
     private static float mTouchY = -1;
-
-  //  private static float mLastTouchX = 239;//indent initial display
-  //  private static float mLastTouchY = 239;
 
 	public static int ORBIT_6_KNOT = 0;
 	public static int ORBIT_4_KNOT = 1;
@@ -73,22 +69,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	public static int TRANSITION_HALT_AT_CLOSEST = 3;
 	public static String[] transitionNames = {"no transition","Spin in","Spin out","Halt at 12","Halt at edge"};
 	public static int transitionCount = transitionNames.length-1;
-//	public static int currentTransition = TRANSITION_NO_TRANSITION;
-	
 	//new split transitions
-	// away and back
-//	public static int TRANSITION_AWAY_NONE = -1;
-//	public static int TRANSITION_AWAY_SPIN_IN = 0;
-//	public static int TRANSITION_AWAY_SPIN_OUT = 1;
-//	public static int TRANSITION_AWAY_STOP_AT_12 = 2;
-//	public static int TRANSITION_AWAY_STOP_AT_EDGE = 3;
-//
-//	public static int TRANSITION_BACK_NONE = -1;
-//	public static int TRANSITION_BACK_SPIN_IN = 0;
-//	public static int TRANSITION_BACK_SPIN_OUT = 1;
-//	public static int TRANSITION_BACK_STOP_AT_12 = 2;
-//	public static int TRANSITION_BACK_STOP_AT_EDGE = 3;
-	
 	public static int currentTransitionAway = TRANSITION_NO_TRANSITION;//spin away to Centre
 	public static int currentTransitionBack = TRANSITION_NO_TRANSITION;//spin back from outside
 
@@ -130,12 +111,8 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 			{ Color.argb(255,255,0,255), Color.argb(255,255,0,90), Color.argb(255,255,0,90), Color.argb(255,255,0,255), Color.argb(255,255,0,90), Color.argb(255,255,0,255)},//ferretcheery
 			{ Color.argb(255,101,16,89), Color.argb(255,255,99,9), Color.argb(255,201,0,22), Color.argb(255,101,16,89), Color.argb(255,255,99,9), Color.argb(255,201,0,22) }//Ubuntu purple
 		};
-//		private String[] colorSchemeNames = {"White","XDA","Cyanogen","FireFox","Apache","/.","Ubuntu1","Ubuntu2"};
-	//	private boolean inTransition = false;
-	//	private int orbitRadiusDiff = - 5;//start ready to compress
-		//this use of ord won't cut the mustard now
-		
-		
+		private String[] colorSchemeNames = {"White","XDA","Cyanogen","FireFox","Apache","/.","Ubuntu1","Cherry","Ubuntu2"};
+	
 		private float orbitSpeed = 0.1f;//start average screen
 
 		private float orbitalCompression = 0.125f;//2.5f * orbitSpeed;
@@ -147,17 +124,11 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 		
 		private int defaultRadius = 100;
 		private int offScreenRadius = 1200;
-//		private int expandSpeed = 20;
-//		private int contractSpeed = -17;
 		private int fastSpeed = 20;
 		private int slowSpeed = 7;
-		
 		int speedIndex = 0;
-		
-
 		int dotSize = 1;
-		
-		
+
 		private Random rng = new Random();
 		
         
@@ -175,13 +146,10 @@ public class OrbitalLiveWallpaper extends WallpaperService {
            
 		    setWindowProperties();
 			rng.setSeed(SystemClock.elapsedRealtime());
-
         }
 
 		private void setWindowProperties()
 		{
-			// 
-
             WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
             Display display = wm.getDefaultDisplay();
             width = display.getWidth();
@@ -204,7 +172,6 @@ public class OrbitalLiveWallpaper extends WallpaperService {
             mVisible = visible;
             if (visible) {
 
-			//	setWindowProperties();
                 drawFrame();
             } else {
                 mHandler.removeCallbacks(mDrawCube);
@@ -214,7 +181,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
         @Override
         public void onSurfaceChanged(SurfaceHolder holder, int format, int width, int height) {
             super.onSurfaceChanged(holder, format, width, height);
-		//	setWindowProperties();
+
             drawFrame();
 			
 			
@@ -223,9 +190,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
         @Override
         public void onSurfaceCreated(SurfaceHolder holder) {
             super.onSurfaceCreated(holder);
-
-		//	setWindowProperties();
-			
+	
         }
 
         @Override
@@ -252,9 +217,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
             drawFrame();
         }
 
-        /*
-         * Store the position of the touch event so we can use it for drawing later
-         */
+		
         @Override
         public void onTouchEvent(MotionEvent event) {
             if (event.getAction() == MotionEvent.ACTION_MOVE) {
@@ -266,65 +229,22 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 			{
 				triggerNewTransitionAway();
 			}
-			// set defaults transition type
-//			if(currentTransitionAway == TRANSITION_SPIN_OUT)
-//			{
-//				orbitRadiusDiff = expandSpeed;// -5;
-//				//need to have away and back versions
-//			}
-//
-//			if(currentTransitionAway == TRANSITION_SPIN_IN)
-//			{
-//				orbitRadiusDiff = -contractSpeed;// -5;
-//			}
-//
-//			if(currentTransitionBack == TRANSITION_SPIN_OUT)
-//			{
-//				orbitRadiusDiff = expandSpeed;// -5;
-//			}
-//
-//			if(currentTransitionBack == TRANSITION_SPIN_IN)
-//			{
-//				orbitRadiusDiff = -contractSpeed;// -5;
-//			}
-			
             super.onTouchEvent(event);
         }
 
 		private void triggerNewTransitionAway()
 		{
-			// TODOne: Implement this method
-
-			//	Log.d("orbital","new random");
-		//	currentTransitionBack = TRANSITION_SPIN_IN; // rng.nextInt(transitionCount);
 			currentTransitionAway = rng.nextInt(2); // rng.nextInt(transitionCount);
 			orbitRadius = defaultRadius;
-			
-//			if(currentTransitionBack == TRANSITION_SPIN_IN)
-//			{
-//				orbitRadius = offScreenRadius;
-//			}
-//
-//			if(currentTransitionBack == TRANSITION_SPIN_OUT)
-//			{
-//				orbitRadius = 0;
-//			}
-			
 		}
 
 		
 		private void triggerNewTransitionBack()
 		{
-			// TODOne: Implement this method
-
 			offscreenSetNewOrbit();
 			
 			currentTransitionAway = TRANSITION_NO_TRANSITION;
-			//	Log.d("orbital","new random");
 			currentTransitionBack = rng.nextInt(2); // rng.nextInt(transitionCount);
-		//	currentTransitionAway = TRANSITION_SPIN_IN; // rng.nextInt(transitionCount);
-		//	orbitRadius = defaultRadius;
-		// set transition prerequisites
 			if(currentTransitionBack == TRANSITION_SPIN_IN)
 			{
 				orbitRadius = offScreenRadius;
@@ -393,43 +313,31 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 				c.drawLine(mTouchX,mTouchY,mTouchX+(300f*(float)Math.sin(now)),mTouchY+(300f*(float)Math.cos(now)),mPaint);
 				
 			}
-			
-			
+
 			dotColor = 0;
 
 			if(orbitRadius <= 0 && currentTransitionAway == TRANSITION_SPIN_IN)
 			{
-			//	restrict next type by animation
-			//	offscreenSetNewOrbit();
 				triggerNewTransitionBack();
-			
 			}// rad = 0 or off;
 			
 			if(orbitRadius > offScreenRadius && currentTransitionAway == TRANSITION_SPIN_OUT)
 			{
-			//	restrict next type by animation
 				triggerNewTransitionBack();
-			
 			}// rad = 0 or off;
 			
-			
-		//	if(inTransition)
 			if(currentTransitionAway == TRANSITION_SPIN_OUT )
 			{
-			//	orbitRadius += orbitRadiusDiff;
 				orbitRadius += fastSpeed;
 				orbitDiameter = orbitRadius*2;
 			}
 
 			if(currentTransitionAway == TRANSITION_SPIN_IN )
 			{
-				//	orbitRadius += orbitRadiusDiff;
 				orbitRadius -= slowSpeed;
 				orbitDiameter = orbitRadius*2;
 			}
 			
-			
-
 			if(currentTransitionBack == TRANSITION_SPIN_OUT )
 			{
 				orbitRadius += slowSpeed ;
@@ -441,43 +349,24 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 				orbitRadius -= fastSpeed ;
 				orbitDiameter = orbitRadius*2;
 			}
-			
 
-			
-			
 			if( (Math.abs(orbitRadius) > offScreenRadius) && (currentTransitionAway == TRANSITION_SPIN_OUT) ) //inTransition)
 			{
-				//inTransition = false;
-			//	currentTransitionBack = TRANSITION_NO_TRANSITION;
-				//orbitRadius = defaultRadius;
-				//currentTransitionBack = 
 				triggerNewTransitionBack();
 			}
 
 			if( (Math.abs(orbitRadius) <= defaultRadius) && (currentTransitionBack == TRANSITION_SPIN_IN) )
 			{
-			//	currentTransitionAway = TRANSITION_NO_TRANSITION; // TRANSITION_SPIN_IN;//replace with random
 				currentTransitionBack = TRANSITION_NO_TRANSITION;
-				//orbitRadius = defaultRadius;
-				
-			//	triggerNewTransitionBack();
 			}
 
 			if( (Math.abs(orbitRadius) >= defaultRadius) && (currentTransitionBack == TRANSITION_SPIN_OUT) ) //inTransition)
 			{
-				//inTransition = false;
-				//	currentTransitionBack = TRANSITION_NO_TRANSITION;
-				//orbitRadius = defaultRadius;
 				currentTransitionBack = TRANSITION_NO_TRANSITION;
-				
 			}
 
 			if( (Math.abs(orbitRadius) < 1) && (currentTransitionAway == TRANSITION_SPIN_IN) )
 			{
-				//	currentTransitionAway = TRANSITION_NO_TRANSITION; // TRANSITION_SPIN_IN;//replace with random
-				//	currentTransitionBack = TRANSITION_NO_TRANSITION;
-				//orbitRadius = defaultRadius;
-
 				triggerNewTransitionBack();
 			}
 			
@@ -485,26 +374,22 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 			//reset other transitions irregularity
 			if(currentTransitionAway == TRANSITION_HALT_AT_12)
 			{
-
 				currentTransitionAway = TRANSITION_NO_TRANSITION;
 				//orbitRadius = defaultRadius;
 			}
 			if(currentTransitionAway == TRANSITION_HALT_AT_CLOSEST)
 			{
-
 				currentTransitionAway = TRANSITION_NO_TRANSITION;
 				//orbitRadius = defaultRadius;
 			}
 
 			if(currentTransitionBack == TRANSITION_HALT_AT_12)
 			{
-
 				currentTransitionBack = TRANSITION_NO_TRANSITION;
 				//orbitRadius = defaultRadius;
 			}
 			if(currentTransitionBack == TRANSITION_HALT_AT_CLOSEST)
 			{
-
 				currentTransitionBack = TRANSITION_NO_TRANSITION;
 				//orbitRadius = defaultRadius;
 			}
@@ -624,7 +509,6 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 
 		private void offscreenSetNewOrbit()
 		{
-			// TODO: Implement this method
 			currentTransitionAway = TRANSITION_NO_TRANSITION;
 
 			orbitType =  rng.nextInt(orbitNames.length);
@@ -634,33 +518,8 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 			dotSize = dotSizes[orbitType][rng.nextInt(dotSizes[orbitType].length)];
 			currentScheme = rng.nextInt(colorSchemes.length);
 			
-
-
 			now = 0;//removed for continue//replaced for reliability
 			orbitalCompression = 0.125f;
-
-			//		stupid spot for this... must move one Sat
-//			if(currentTransitionAway == TRANSITION_SPIN_IN)
-//			{
-//				orbitRadiusDiff = contractSpeed;//5 or 15;
-//			}
-//
-//			if(currentTransitionAway == TRANSITION_SPIN_OUT)
-//			{
-//				orbitRadiusDiff = -expandSpeed;
-//			}
-//
-//			if(currentTransitionBack == TRANSITION_SPIN_IN)
-//			{
-//				orbitRadiusDiff = contractSpeed;//5 or 15;
-//			}
-//
-//			if(currentTransitionBack == TRANSITION_SPIN_OUT)
-//			{
-//				orbitRadiusDiff = -expandSpeed;
-//			}
-
-		
 		}//setup new orbit
         
     }//class TargetEngine
