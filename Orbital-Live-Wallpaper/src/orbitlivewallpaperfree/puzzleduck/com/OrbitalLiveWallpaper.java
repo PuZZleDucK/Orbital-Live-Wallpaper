@@ -42,32 +42,32 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	public static int ORBIT_5_SIMPLE = 4;
 	public static int ORBIT_8 = 5;
 	public static String[] orbitNames = {"6 knot","4 knot","4 simple","3 simple","5 simple","Windows8"};
-	private float[][] orbitSpeeds = { {-0.01f,0.01f,0.03f,0.05f,0.07f},//6knot
-		{-0.01f,0.01f,0.03f,0.05f,0.1f,0.2f}, //4knot
-		{-0.01f,0.05f,0.1f,0.2f,0.3f,0.5f},//4simple 
-		{-0.01f,0.05f,0.1f,0.2f,0.3f}, //3simple
-		{-0.01f,0.05f,0.1f,0.2f,0.3f,0.5f}, //5simple
+	private float[][] orbitSpeeds = { {-0.7f,-0.5f,-0.3f,0.03f,0.05f,0.07f},//6knot
+		{-0.05f,-0.1f,-0.2f,-0.3f,0.03f,0.05f,0.1f,0.2f}, //4knot
+		{-0.1f,-0.2f,-0.3f,-0.5f,0.1f,0.2f,0.3f,0.5f},//4simple 
+		{-0.1f,-0.2f,-0.3f,0.1f,0.2f,0.3f}, //3simple
+		{-0.1f,-0.2f,-0.3f,-0.5f,0.1f,0.2f,0.3f,0.5f}, //5simple
 		{-0.2f,-0.1f,-0.05f,0.03f,0.05f,0.1f,0.2f} };//win8
 	public int[][] orbitalCounts = { {2,3,4,5},//6
-		{2,3,4},//4
-		{2,3,4},//4s
-		{2,3,4,5,6},//3s
+		{2,3,4,5},//4
+		{2,3,4,5,6,7},//4s
+		{2,3,4,5,6,7},//3s
 		{2,3,4},//5
 		{2,3,4,5,6,7,8,9,10}};//8
 	public static int orbitType = orbitNames.length - 1;  
 	public int[][] dotSizes = {{1},//6
-		{1},//4
-		{1},//4$
-		{1,2,3,4,5,10},//3$
-		{1},//5
-		{1}};//8
+		{1,2,3,4,5},//4
+		{1,2,3,4,5},//4$
+		{1,2,3,4,5},//3$
+		{1,2,3,4},//5
+		{1,2,3}};//8
 	
 	public static int TRANSITION_NO_TRANSITION = -1;
 	public static int TRANSITION_SPIN_IN = 0;
 	public static int TRANSITION_SPIN_OUT = 1;
 	public static int TRANSITION_HALT_AT_12 = 2;
 	public static int TRANSITION_HALT_AT_CLOSEST = 3;
-	public static String[] transitionNames = {"no transition","Spin in","Spin out","Halt at 12","Halt at edge"};
+	public static String[] transitionNames = {"no transition","Spin in","Spin out"};//,"Halt at 12","Halt at edge"};
 	public static int transitionCount = transitionNames.length-1;
 	//new split transitions
 	public static int currentTransitionAway = TRANSITION_NO_TRANSITION;//spin away to Centre
