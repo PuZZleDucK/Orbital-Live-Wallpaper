@@ -42,25 +42,25 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 	public static int ORBIT_5_SIMPLE = 4;
 	public static int ORBIT_8 = 5;
 	public static String[] orbitNames = {"6 knot","4 knot","4 simple","3 simple","5 simple","Windows8"};
-	private float[][] orbitSpeeds = { {-0.7f,-0.5f,-0.3f,0.03f,0.05f,0.07f},//6knot
+	private float[][] orbitSpeeds = { {-0.07f,-0.03f,0.03f,0.07f},//6knot
 		{-0.05f,-0.1f,-0.2f,-0.3f,0.03f,0.05f,0.1f,0.2f}, //4knot
 		{-0.1f,-0.2f,-0.3f,-0.5f,0.1f,0.2f,0.3f,0.5f},//4simple 
 		{-0.1f,-0.2f,-0.3f,0.1f,0.2f,0.3f}, //3simple
 		{-0.1f,-0.2f,-0.3f,-0.5f,0.1f,0.2f,0.3f,0.5f}, //5simple
-		{-0.2f,-0.1f,-0.05f,0.03f,0.05f,0.1f,0.2f} };//win8
-	public int[][] orbitalCounts = { {2,3,4,5},//6
-		{2,3,4,5},//4
-		{2,3,4,5,6,7},//4s
-		{2,3,4,5,6,7},//3s
-		{2,3,4},//5
-		{2,3,4,5,6,7,8,9,10}};//8
+		{-0.2f,-0.1f,-0.05f,0.05f,0.1f,0.2f} };//win8
+	public int[][] orbitalCounts = { {3,4,5,6},//6
+		{3,4,5,6,7,8},//4
+		{3,4,5,6,7},//4s
+		{3,4,5,6,7},//3s
+		{3,4},//5
+		{3,4,5,6}};//8
 	public static int orbitType = orbitNames.length - 1;  
 	public int[][] dotSizes = {{1},//6
-		{1,2,3,4,5},//4
-		{1,2,3,4,5},//4$
-		{1,2,3,4,5},//3$
-		{1,2,3,4},//5
-		{1,2,3}};//8
+		{2,3,4,5},//4
+		{2,3,4,5},//4$
+		{2,3,4,5},//3$
+		{2,3,4},//5
+		{2,3}};//8
 	
 	public static int TRANSITION_NO_TRANSITION = -1;
 	public static int TRANSITION_SPIN_IN = 0;
@@ -108,10 +108,11 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 			{ Color.argb(255,220,200,20), Color.argb(255,80,30,120), Color.argb(255,160,50,200), Color.argb(255,190,50,150), Color.argb(255,230,10,30), Color.argb(255,240,50,5)},//Apache
 			{ Color.argb(255,255,255,255), Color.argb(255,45,128,124), Color.argb(255,45,128,124), Color.argb(255,45,128,124), Color.argb(255,45,128,124), Color.argb(255,45,128,124)},//slash.
 			{ Color.argb(255,255,99,9), Color.argb(255,201,0,22), Color.argb(255,255,181,21), Color.argb(255,255,99,9), Color.argb(255,201,0,22), Color.argb(255,255,181,21)},//ubuntu classic
+			{ Color.argb(255,130,230,255), Color.argb(255,130,230,255), Color.argb(255,100,200,255), Color.argb(255,100,200,255), Color.argb(255,160,260,255), Color.argb(255,160,260,255)},//cy-gen
 			{ Color.argb(255,255,0,255), Color.argb(255,255,0,90), Color.argb(255,255,0,90), Color.argb(255,255,0,255), Color.argb(255,255,0,90), Color.argb(255,255,0,255)},//ferretcheery
 			{ Color.argb(255,101,16,89), Color.argb(255,255,99,9), Color.argb(255,201,0,22), Color.argb(255,101,16,89), Color.argb(255,255,99,9), Color.argb(255,201,0,22) }//Ubuntu purple
 		};
-		private String[] colorSchemeNames = {"White","XDA","Cyanogen","FireFox","Apache","/.","Ubuntu1","Cherry","Ubuntu2"};
+		private String[] colorSchemeNames = {"White","XDA","Cyanogen","FireFox","Apache","/.","Ubuntu1","Cyanogen","Cherry","Ubuntu2"};
 	
 		private float orbitSpeed = 0.1f;//start average screen
 
@@ -127,7 +128,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 		private int fastSpeed = 20;
 		private int slowSpeed = 7;
 		int speedIndex = 0;
-		int dotSize = 1;
+		int dotSize = 3;
 
 		private Random rng = new Random();
 		
@@ -484,8 +485,8 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 
 			if(orbitType == ORBIT_8)
         	{
-				setCount = 5;
-        		orbitalCount = 5;
+			//	setCount = trailCount;
+        		orbitalCount = trailCount;
 
 				if(Math.sin(now) < -0.1 || Math.sin(now) > 0.1)//compensate for orientation (or better yet gyro) in next release instead of hard coding 179
 				{
@@ -500,7 +501,7 @@ public class OrbitalLiveWallpaper extends WallpaperService {
 					
 					c.drawCircle( mTouchX + (float) ( (Math.sin( offset+179f) ) *orbitRadius), 
 								 mTouchY + (float) ( (Math.cos( offset+179f) ) *orbitRadius), 
-								 5, mPaint);
+								 2+dotSize, mPaint);
 	            } 
 			}//windows late
 
