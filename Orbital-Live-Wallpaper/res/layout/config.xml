@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <EditText
+		android:id="@+id/configtext"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="edit text filler" />
+
+	<Button 
+		android:id="@+id/okbutton"
+		android:text="Create"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:clickable="true"/>
+
+	<Button 
+		android:id="@+id/cancelbutton"
+		android:text="Cancel"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:clickable="true"/>
+	
+	
+</LinearLayout>

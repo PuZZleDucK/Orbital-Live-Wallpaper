@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/Widget"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center" >
+
+	<Image
+		android:id="@+id/imageWidget"
+		android:text="img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+	    
+	/>
+	
+	
+	<!--
+		
+	FrameLayout
+	LinearLayout
+	RelativeLayout
+	GridLayout
+	
+	AnalogClock
+	Button
+	Chronometer
+	ImageButton
+	ImageView
+	ProgressBar
+	TextView
+	ViewFlipper
+	ListView
+	GridView
+	StackView
+	AdapterViewFlipper
+		
+	-->	
+	
+	
+ <!--   <AnalogClock
+        android:id="@+id/AnalogClock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+-->
+</RelativeLayout>
