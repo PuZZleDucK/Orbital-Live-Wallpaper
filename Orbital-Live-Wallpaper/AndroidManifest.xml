@@ -6,7 +6,7 @@
  * 
  *	This program is free software; you can redistribute it and/or
  *	modify it under the terms of the GNU General Public License version
- *	2 as published by the Free Software Foundation.
+ *	3 as published by the Free Software Foundation.
  *
  * This live wallpaper was originally based on the target live wallpaper by PuZZleDucK
  *
@@ -22,7 +22,7 @@
 	 
     <application
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name" android:debuggable="false">
+        android:label="@string/app_name">
         <activity
             android:name="OrbitalLiveWallpaperActivity"
             android:label="@string/app_name" >
@@ -32,7 +32,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-		
+        
 		<service
             android:label="@string/app_name"
             android:permission="android.permission.BIND_WALLPAPER"
@@ -42,6 +42,14 @@
             </intent-filter>
             <meta-data android:name="android.service.wallpaper" android:resource="@xml/lwp" />
         </service>
+        
+        <activity
+            android:label="config activity"
+            android:name=".OrbitalLiveWallpaperSettings"
+            android:theme="@android:style/Theme.Light.WallpaperSettings"
+            android:exported="true"
+            android:layout="@layout/settings">
+        </activity>
 	
 		
     </application>

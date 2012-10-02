@@ -6,7 +6,7 @@
  * 
  *	This program is free software; you can redistribute it and/or
  *	modify it under the terms of the GNU General Public License version
- *	2 as published by the Free Software Foundation.
+ *	3 as published by the Free Software Foundation.
  *
  * This live wallpaper was originally based on the target live wallpaper by PuZZleDucK
  *
@@ -19,5 +19,12 @@
     <string name="appButtonString">1. View other PuZZleDucK Industries apps in the Play Store.</string>
     <string name="dropboxButtonString">2. Join dropbox and refer PuZZleDucK Industries.</string>
     <string name="githubButtonString">3. Checkout the code on GitHub.</string>
+    <string name="settings_title">Orbital LWP Settings</string>
+    <string name="orbit_settings_orbit_category_title">Orbits</string>
+    <string name="orbit_settings_trans_title">Transitions</string>
+    <string name="orbit_settings_color_title">Colors</string>
+    <string name="orbit_settings_orbit_category_summary">Orbits</string>
+    <string name="orbit_settings_trans_summary">Transitions</string>
+    <string name="orbit_settings_color_summary">Colors</string>
 
 </resources>

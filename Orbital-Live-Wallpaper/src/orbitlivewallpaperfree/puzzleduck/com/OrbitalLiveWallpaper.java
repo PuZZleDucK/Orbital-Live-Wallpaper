@@ -5,7 +5,7 @@
  * 
  *	This program is free software; you can redistribute it and/or
  *	modify it under the terms of the GNU General Public License version
- *	2 as published by the Free Software Foundation.
+ *	3 as published by the Free Software Foundation.
  *
  * This live wallpaper was originally based on the target live wallpaper by PuZZleDucK
  *
@@ -30,6 +30,8 @@ import android.util.*;
 
 public class OrbitalLiveWallpaper extends WallpaperService {
 
+	protected static final String SHARED_PREFS_NAME = "orbital_lwp_settings";
+	
     private static final boolean DEBUG = false;
  
     private static float mTouchX = -1;
