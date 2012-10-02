@@ -14,32 +14,4 @@
 	/>
 	
 	
-	<!--
-		
-	FrameLayout
-	LinearLayout
-	RelativeLayout
-	GridLayout
-	
-	AnalogClock
-	Button
-	Chronometer
-	ImageButton
-	ImageView
-	ProgressBar
-	TextView
-	ViewFlipper
-	ListView
-	GridView
-	StackView
-	AdapterViewFlipper
-		
-	-->	
-	
-	
- <!--   <AnalogClock
-        android:id="@+id/AnalogClock"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
--->
 </RelativeLayout>

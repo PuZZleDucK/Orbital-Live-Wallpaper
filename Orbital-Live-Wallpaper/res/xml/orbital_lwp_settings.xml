@@ -12,30 +12,44 @@
  *
  */ -->
 
-<PreferenceScreen android:key="orbital_wallpaper_settings" android:title="@string/settings_title" xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen 
+    android:key="orbital_wallpaper_settings" 
+    android:title="@string/settings_title" 
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-     
-    
-    <PreferenceCategory android:key="orbit_category" android:title="@string/orbit_settings_orbit_category_title" android:summary="@string/orbit_settings_orbit_category_summary">
-    <CheckBoxPreference android:summaryOn="filler" android:summaryOff="filler" android:title="filler" android:summary="filler" android:key="target_pulse_on" android:defaultValue="true"></CheckBoxPreference>
-</PreferenceCategory><PreferenceCategory android:key="transition_category" android:title="@string/orbit_settings_trans_title" android:summary="@string/orbit_settings_trans_summary">
+    <PreferenceCategory 
+        android:key="orbit_category" 
+        android:title="@string/orbit_settings_orbit_category_title" 
+        android:summary="@string/orbit_settings_orbit_category_summary">
+    <CheckBoxPreference 
+        android:summaryOn="filler" 
+        android:summaryOff="filler" 
+        android:title="filler" 
+        android:summary="filler" 
+        android:key="target_pulse_on" 
+        android:defaultValue="true"></CheckBoxPreference>
+</PreferenceCategory><PreferenceCategory 
+    android:key="transition_category" 
+    android:title="@string/orbit_settings_trans_title" 
+    android:summary="@string/orbit_settings_trans_summary">
 
 <!-- 
 <ListPreference android:entries="@array/target_animatenames" android:entryValues="@array/target_animatevalues" android:key="target_disc_type" android:title="@string/target_settings_disctype_title" android:summary="@string/target_settings_disctype_summary"></ListPreference>
  -->
 
 </PreferenceCategory>
-<PreferenceCategory android:key="colors_category" android:summary="@string/orbit_settings_color_summary" android:title="@string/orbit_settings_color_title">
-    <CheckBoxPreference android:summaryOn="filler" android:summaryOff="filler" android:key="target_flare_on" android:title="filler" android:summary="filler" android:defaultValue="true"></CheckBoxPreference>
+<PreferenceCategory 
+    android:key="colors_category" 
+    android:summary="@string/orbit_settings_color_summary" 
+    android:title="@string/orbit_settings_color_title">
+    <CheckBoxPreference 
+        android:summaryOn="filler" 
+        android:summaryOff="filler" 
+        android:key="target_flare_on" 
+        android:title="filler" 
+        android:summary="filler" 
+        android:defaultValue="true"></CheckBoxPreference>
 </PreferenceCategory>
 
     
-    
-    
-
-    
-    
-    
-    
-
 </PreferenceScreen>

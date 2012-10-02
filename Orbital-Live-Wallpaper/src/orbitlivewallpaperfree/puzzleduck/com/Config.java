@@ -10,12 +10,8 @@ import android.view.*;
 
 public class Config extends Activity implements OnClickListener
 {
-
     private int newIdTemp = 0;
-
 	private int runNumber;
-	
-	
 	
 	public void onClick(View p1)
 	{
@@ -24,10 +20,6 @@ public class Config extends Activity implements OnClickListener
 		//$#ared prefs... check if exist
 		SharedPreferences settings = getSharedPreferences ( OrbitalLiveWallpaper.SHARED_PREFS_NAME , 0 );//multi... just in case  .. removing now MODE_MULTI_PROCESS 
 		//boolean firstRun = settings.getBoolean("firstRun", true);
-		
-		
-		
-		
 		
 		//write
 		runNumber += 1;
@@ -77,20 +69,12 @@ public class Config extends Activity implements OnClickListener
 
 			
 	      //$#ared prefs... check if exist
-	       SharedPreferences settings = getSharedPreferences ( "meetingWidgetPrefs" , 0 );//multi... just in case
+	       SharedPreferences settings = getSharedPreferences ( OrbitalLiveWallpaper.SHARED_PREFS_NAME , 0 );//multi... just in case
 	       runNumber = settings.getInt("runNumber", 0);
 
 	       EditText t = (EditText)findViewById(R.id.configtext);
-	//	   t.beginBatchEdit();
 	        t.append("you have run config " + runNumber + " timea");
 			
-	  //t.endBatchEdit();
-		//	t.setText("test");
-		//	t.append("7est");
-		//t.beginBatchEdit()
-			
-	  
-	  
 	  
 	  newIdTemp = 0;
 			
@@ -105,46 +89,17 @@ public class Config extends Activity implements OnClickListener
 				finish();
 			}
 			
-			// set result to camcel to alliw backout
-			
 			// do config here
-			
-		//	Button cancelButton = this.getResources().getr getResourceById();
-		//	Button okButton = (Button)
 		System.out.println("pre button");
-		//	findViewById(R.id.okbutton).setOnClickListener(this);
 			Button b = (Button)findViewById( R.id.okbutton );
-		//	b.setOnClickListener( (OnClickListener) this);
-
 	        b.setOnClickListener( this );
-			
+	        //duplicate work... should remove one
 			findViewById(R.id.cancelbutton).setOnClickListener(this);
-			//going inner clasd
 			
 			
 			
 			
 			
   }
-	
-
-	
-	
-	//inner class
-//	class ButtonClicker implements Button.OnClickListener
-//	{
-//		@Override
-//		public void onClick
-//		(View v) {
-//			
-//                Toast.
-//					makeText(v.getContext(),
-//							 "Hello!! button Clicked",
-//							 Toast.LENGTH_SHORT).show();
-//		
-//		}
-//		}//inner
-	
-	
 
 }//class
