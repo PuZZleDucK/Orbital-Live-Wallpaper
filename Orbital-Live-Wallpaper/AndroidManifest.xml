@@ -54,7 +54,7 @@
 	
         <!--  WIDGET  -->
 				<activity
-            android:name=".Config" 
+            android:name=".WidgetConfig" 
 			android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />

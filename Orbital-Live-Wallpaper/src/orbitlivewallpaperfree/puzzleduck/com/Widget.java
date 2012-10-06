@@ -12,8 +12,7 @@ public class Widget extends AppWidgetProvider {
 		String action = intent.getAction();
 		if (AppWidgetManager.ACTION_APPWIDGET_UPDATE.equals(action)) {
 
-			RemoteViews views = new RemoteViews(context.getPackageName(),
-					R.layout.widget);
+			RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
 
 			AppWidgetManager
 					.getInstance(context)

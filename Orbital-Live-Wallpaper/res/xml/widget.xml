@@ -2,5 +2,5 @@
     android:initialLayout="@layout/widget"
     android:minHeight="146dip"
     android:minWidth="146dip"
-	android:configure="orbitlivewallpaperfree.puzzleduck.com.Config"
+	android:configure="orbitlivewallpaperfree.puzzleduck.com.WidgetConfig"
     android:updatePeriodMillis="600" />

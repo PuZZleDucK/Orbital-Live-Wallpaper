@@ -8,7 +8,7 @@ import android.widget.*;
 import android.view.View.OnClickListener;
 import android.view.*;
 
-public class Config extends Activity implements OnClickListener
+public class WidgetConfig extends Activity implements OnClickListener
 {
     private int newIdTemp = 0;
 	private int runNumber;
@@ -32,7 +32,7 @@ public class Config extends Activity implements OnClickListener
 		
 		// i think context is baf
 		
-		final Context context =	Config.this;
+		final Context context =	WidgetConfig.this;
 		
 		System.out.println("start button");
 
